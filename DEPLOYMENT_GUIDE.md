@@ -21,7 +21,9 @@ This project has a **Client** (React frontend) deployed on **Vercel** and a **Se
 3. **Root Directory**: Set to `server` (since `package.json` is inside the `server/` folder, not the repo root).
 4. **Build Command**: `npm install`
 5. **Start Command**: `npm start` (or `node server.js`)
-6. **Environment Variables** — Add the following:
+6. **Node Version**: Set to **20 LTS** in Render (or rely on `server/package.json` engines: `"node": "20.x"`).
+   - If Render cached an older build with Node 25, use **Manual Deploy → Clear build cache & deploy**.
+7. **Environment Variables** — Add the following:
 
    | Key          | Value                                                        |
    |------------- |--------------------------------------------------------------|
@@ -32,8 +34,8 @@ This project has a **Client** (React frontend) deployed on **Vercel** and a **Se
 
    > ⚠️ **Important**: `CLIENT_URL` must be your Vercel frontend URL **without a trailing slash**. This is used in the CORS configuration to allow requests from the frontend.
 
-7. Click **Deploy**.
-8. Once deployed, your backend URL will be: `https://job-portal-web-application-8dig.onrender.com`
+8. Click **Deploy**.
+9. Once deployed, your backend URL will be: `https://job-portal-web-application-8dig.onrender.com`
 
 ---
 
