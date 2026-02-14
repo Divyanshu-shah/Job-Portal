@@ -1,8 +1,18 @@
 import axios from 'axios';
 
+// Helper to determine the base URL
+const getBaseUrl = () => {
+    const envUrl = import.meta.env.VITE_API_URL;
+    if (!envUrl) return '/api';
+
+    // Remove trailing slash if present and ensure /api suffix
+    const cleanUrl = envUrl.replace(/\/$/, '');
+    return cleanUrl.endsWith('/api') ? cleanUrl : `${cleanUrl}/api`;
+};
+
 // Create axios instance
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL || '/api',
+    baseURL: getBaseUrl(),
     headers: {
         'Content-Type': 'application/json'
     }
