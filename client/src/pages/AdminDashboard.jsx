@@ -1,16 +1,20 @@
 import { useState, useEffect } from 'react';
 import { adminAPI } from '../services/api';
-import { useAuth } from '../context/AuthContext';
-import { FaUsers, FaBriefcase, FaUserTie, FaFileAlt, FaCheck, FaTimes, FaTrash, FaClock } from 'react-icons/fa';
+import AnimatedSection from '../components/AnimatedSection';
+import CountUp from '../components/CountUp';
+import { FaUsers, FaBriefcase, FaCheckCircle, FaTimesCircle, FaTrash, FaUserGraduate, FaUserTie, FaShieldAlt, FaClock } from 'react-icons/fa';
 
 const AdminDashboard = () => {
-    const { user } = useAuth();
-    const [stats, setStats] = useState(null);
-    const [users, setUsers] = useState([]);
+    const [stats, setStats] = useState({
+        totalUsers: 0,
+        totalStudents: 0,
+        totalRecruiters: 0,
+        totalJobs: 0
+    });
     const [pendingRecruiters, setPendingRecruiters] = useState([]);
+    const [allUsers, setAllUsers] = useState([]);
+    const [activeTab, setActiveTab] = useState('pending');
     const [loading, setLoading] = useState(true);
-    const [activeTab, setActiveTab] = useState('overview');
-    const [userFilter, setUserFilter] = useState('');
 
     useEffect(() => {
         fetchData();
@@ -18,52 +22,66 @@ const AdminDashboard = () => {
 
     const fetchData = async () => {
         try {
-            const [statsRes, usersRes, pendingRes] = await Promise.all([
+            const [statsRes, pendingRes, usersRes] = await Promise.all([
                 adminAPI.getStats(),
-                adminAPI.getUsers(),
-                adminAPI.getPendingRecruiters()
+                adminAPI.getPendingRecruiters(),
+                adminAPI.getAllUsers()
             ]);
             setStats(statsRes.data);
-            setUsers(usersRes.data.users);
             setPendingRecruiters(pendingRes.data);
+            setAllUsers(usersRes.data);
         } catch (err) {
-            console.error('Failed to fetch data:', err);
+            console.error('Failed to fetch admin data:', err);
         }
         setLoading(false);
     };
 
-    const handleApproveRecruiter = async (id) => {
+    const approveRecruiter = async (id) => {
         try {
             await adminAPI.approveRecruiter(id);
+            setPendingRecruiters(pendingRecruiters.filter(r => r._id !== id));
             fetchData();
         } catch (err) {
             console.error('Failed to approve recruiter:', err);
         }
     };
 
-    const handleRejectRecruiter = async (id) => {
-        if (!window.confirm('Are you sure you want to reject this recruiter?')) return;
+    const rejectRecruiter = async (id) => {
         try {
             await adminAPI.rejectRecruiter(id);
-            fetchData();
+            setPendingRecruiters(pendingRecruiters.filter(r => r._id !== id));
         } catch (err) {
             console.error('Failed to reject recruiter:', err);
         }
     };
 
-    const handleDeleteUser = async (id) => {
-        if (!window.confirm('Are you sure you want to delete this user?')) return;
-        try {
-            await adminAPI.deleteUser(id);
-            fetchData();
-        } catch (err) {
-            console.error('Failed to delete user:', err);
+    const deleteUser = async (id) => {
+        if (window.confirm('Are you sure you want to delete this user?')) {
+            try {
+                await adminAPI.deleteUser(id);
+                setAllUsers(allUsers.filter(u => u._id !== id));
+                fetchData();
+            } catch (err) {
+                console.error('Failed to delete user:', err);
+            }
         }
     };
 
-    const filteredUsers = users.filter(u =>
-        !userFilter || u.role === userFilter
-    );
+    const getRoleBadge = (role) => {
+        const styles = {
+            student: 'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300',
+            recruiter: 'bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300',
+            admin: 'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300',
+        };
+        return styles[role] || '';
+    };
+
+    const statItems = [
+        { value: stats.totalUsers, label: 'Total Users', icon: <FaUsers className="text-3xl text-emerald-300" />, gradient: 'from-emerald-500 to-teal-600' },
+        { value: stats.totalStudents, label: 'Students', icon: <FaUserGraduate className="text-3xl text-cyan-300" />, gradient: 'from-cyan-500 to-blue-600' },
+        { value: stats.totalRecruiters, label: 'Recruiters', icon: <FaUserTie className="text-3xl text-amber-300" />, gradient: 'from-amber-500 to-orange-600' },
+        { value: stats.totalJobs, label: 'Total Jobs', icon: <FaBriefcase className="text-3xl text-emerald-300" />, gradient: 'from-emerald-500 to-teal-600' },
+    ];
 
     if (loading) {
         return (
@@ -74,189 +92,115 @@ const AdminDashboard = () => {
     }
 
     return (
-        <div className="page-container bg-gray-50 min-h-screen">
+        <div className="page-container min-h-screen" style={{ background: 'var(--bg-tertiary)' }}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 {/* Header */}
-                <div className="mb-8">
-                    <h1 className="text-3xl font-bold text-gray-900">
-                        Admin <span className="gradient-text">Dashboard</span>
-                    </h1>
-                    <p className="text-gray-600 mt-1">Welcome, {user?.name}</p>
-                </div>
+                <AnimatedSection animation="blur-in" className="mb-8">
+                    <div className="flex items-center gap-3 mb-2">
+                        <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-rose-600 rounded-xl flex items-center justify-center text-white shadow-lg icon-hover-bounce">
+                            <FaShieldAlt />
+                        </div>
+                        <h1 className="text-3xl font-extrabold tracking-tight" style={{ color: 'var(--text-primary)', fontFamily: "'Outfit', sans-serif" }}>
+                            Admin Dashboard
+                        </h1>
+                    </div>
+                    <p style={{ color: 'var(--text-secondary)' }}>Manage users, recruiters, and platform activity.</p>
+                </AnimatedSection>
 
-                {/* Stats Overview */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                    <div className="stat-card">
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <p className="stat-card-value">{stats?.stats?.totalUsers}</p>
-                                <p className="stat-card-label">Total Users</p>
+                {/* Stats */}
+                <AnimatedSection animation="fade-in-up" stagger className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+                    {statItems.map((item, index) => (
+                        <div key={index} className="stat-card card-tilt">
+                            <div className="flex items-center justify-between">
+                                <div>
+                                    <p className="stat-card-value">{item.value}</p>
+                                    <p className="stat-card-label">{item.label}</p>
+                                </div>
+                                {item.icon}
                             </div>
-                            <FaUsers className="text-3xl text-indigo-200" />
                         </div>
-                    </div>
-                    <div className="stat-card">
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <p className="stat-card-value text-blue-600">{stats?.stats?.totalStudents}</p>
-                                <p className="stat-card-label">Students</p>
-                            </div>
-                            <FaUsers className="text-3xl text-blue-200" />
-                        </div>
-                    </div>
-                    <div className="stat-card">
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <p className="stat-card-value text-green-600">{stats?.stats?.totalRecruiters}</p>
-                                <p className="stat-card-label">Recruiters</p>
-                            </div>
-                            <FaUserTie className="text-3xl text-green-200" />
-                        </div>
-                    </div>
-                    <div className="stat-card">
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <p className="stat-card-value text-purple-600">{stats?.stats?.totalJobs}</p>
-                                <p className="stat-card-label">Total Jobs</p>
-                            </div>
-                            <FaBriefcase className="text-3xl text-purple-200" />
-                        </div>
-                    </div>
-                </div>
-
-                {/* Pending Recruiters Alert */}
-                {pendingRecruiters.length > 0 && (
-                    <div className="mb-8 p-4 bg-yellow-50 border border-yellow-200 rounded-xl flex items-center gap-4">
-                        <FaClock className="text-2xl text-yellow-500" />
-                        <div className="flex-1">
-                            <p className="font-semibold text-yellow-800">
-                                {pendingRecruiters.length} recruiter(s) pending approval
-                            </p>
-                            <p className="text-yellow-700 text-sm">Review and approve new recruiter accounts.</p>
-                        </div>
-                        <button
-                            onClick={() => setActiveTab('pending')}
-                            className="btn btn-primary text-sm"
-                        >
-                            Review Now
-                        </button>
-                    </div>
-                )}
+                    ))}
+                </AnimatedSection>
 
                 {/* Tabs */}
-                <div className="flex gap-4 mb-6 border-b border-gray-200">
-                    <button
-                        onClick={() => setActiveTab('overview')}
-                        className={`pb-4 px-2 font-medium transition-colors ${activeTab === 'overview'
-                                ? 'text-indigo-600 border-b-2 border-indigo-600'
-                                : 'text-gray-500 hover:text-gray-700'
-                            }`}
-                    >
-                        Overview
-                    </button>
+                <AnimatedSection animation="slide-in-left" delay={200} className="flex gap-2 mb-6">
                     <button
                         onClick={() => setActiveTab('pending')}
-                        className={`pb-4 px-2 font-medium transition-colors flex items-center gap-2 ${activeTab === 'pending'
-                                ? 'text-indigo-600 border-b-2 border-indigo-600'
-                                : 'text-gray-500 hover:text-gray-700'
+                        className={`px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 btn-ripple ${activeTab === 'pending'
+                            ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-lg shadow-emerald-500/25'
+                            : ''
                             }`}
+                        style={activeTab !== 'pending' ? { background: 'var(--card-bg)', color: 'var(--text-secondary)', border: '1px solid var(--card-border)' } : {}}
                     >
-                        Pending Recruiters
+                        Pending Approvals
                         {pendingRecruiters.length > 0 && (
-                            <span className="bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">
+                            <span className="ml-2 w-6 h-6 inline-flex items-center justify-center bg-red-500 text-white text-xs rounded-full font-bold glow-ring">
                                 {pendingRecruiters.length}
                             </span>
                         )}
                     </button>
                     <button
                         onClick={() => setActiveTab('users')}
-                        className={`pb-4 px-2 font-medium transition-colors ${activeTab === 'users'
-                                ? 'text-indigo-600 border-b-2 border-indigo-600'
-                                : 'text-gray-500 hover:text-gray-700'
+                        className={`px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 btn-ripple ${activeTab === 'users'
+                            ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-lg shadow-emerald-500/25'
+                            : ''
                             }`}
+                        style={activeTab !== 'users' ? { background: 'var(--card-bg)', color: 'var(--text-secondary)', border: '1px solid var(--card-border)' } : {}}
                     >
                         All Users
                     </button>
-                </div>
+                </AnimatedSection>
 
-                {/* Tab Content */}
-                {activeTab === 'overview' && (
-                    <div className="grid md:grid-cols-2 gap-6">
-                        {/* Recent Users */}
-                        <div className="card">
-                            <div className="p-6 border-b border-gray-100">
-                                <h3 className="font-semibold text-gray-900">Recent Users</h3>
-                            </div>
-                            <div className="divide-y divide-gray-100">
-                                {stats?.recentUsers?.map((u) => (
-                                    <div key={u._id} className="p-4 flex items-center justify-between">
-                                        <div>
-                                            <p className="font-medium text-gray-900">{u.name}</p>
-                                            <p className="text-sm text-gray-500">{u.email}</p>
-                                        </div>
-                                        <span className={`badge ${u.role === 'student' ? 'bg-blue-100 text-blue-800' :
-                                                u.role === 'recruiter' ? 'bg-green-100 text-green-800' :
-                                                    'bg-purple-100 text-purple-800'
-                                            }`}>
-                                            {u.role}
-                                        </span>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Recent Jobs */}
-                        <div className="card">
-                            <div className="p-6 border-b border-gray-100">
-                                <h3 className="font-semibold text-gray-900">Recent Jobs</h3>
-                            </div>
-                            <div className="divide-y divide-gray-100">
-                                {stats?.recentJobs?.map((job) => (
-                                    <div key={job._id} className="p-4">
-                                        <p className="font-medium text-gray-900">{job.title}</p>
-                                        <p className="text-sm text-gray-500">{job.company}</p>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                )}
-
+                {/* Pending Approvals Tab */}
                 {activeTab === 'pending' && (
-                    <div className="card">
-                        <div className="p-6 border-b border-gray-100">
-                            <h3 className="font-semibold text-gray-900">Pending Recruiter Approvals</h3>
+                    <div className="card fade-in">
+                        <div className="p-6" style={{ borderBottom: '1px solid var(--border-color)' }}>
+                            <h2 className="text-xl font-bold flex items-center gap-2" style={{ color: 'var(--text-primary)', fontFamily: "'Outfit', sans-serif" }}>
+                                <FaClock className="text-amber-500" /> Pending Recruiter Approvals
+                            </h2>
                         </div>
+
                         {pendingRecruiters.length === 0 ? (
-                            <div className="text-center py-12">
-                                <FaCheck className="text-5xl text-green-300 mx-auto mb-4" />
-                                <p className="text-gray-500">No pending approvals!</p>
+                            <div className="text-center py-16">
+                                <div className="w-20 h-20 mx-auto mb-5 rounded-2xl flex items-center justify-center" style={{ background: 'var(--bg-tertiary)' }}>
+                                    <FaCheckCircle className="text-3xl text-emerald-500" />
+                                </div>
+                                <h3 className="text-lg font-bold mb-2" style={{ color: 'var(--text-primary)' }}>All Clear!</h3>
+                                <p style={{ color: 'var(--text-secondary)' }}>No pending recruiter approvals.</p>
                             </div>
                         ) : (
-                            <div className="divide-y divide-gray-100">
-                                {pendingRecruiters.map((recruiter) => (
-                                    <div key={recruiter._id} className="p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
-                                        <div>
-                                            <h4 className="font-semibold text-gray-900">{recruiter.name}</h4>
-                                            <p className="text-gray-500 text-sm">{recruiter.email}</p>
-                                            <p className="text-gray-500 text-sm">Company: {recruiter.company}</p>
-                                            <p className="text-gray-400 text-xs">
-                                                Registered: {new Date(recruiter.createdAt).toLocaleDateString()}
-                                            </p>
-                                        </div>
-                                        <div className="flex gap-3">
-                                            <button
-                                                onClick={() => handleApproveRecruiter(recruiter._id)}
-                                                className="btn btn-success flex items-center gap-2"
-                                            >
-                                                <FaCheck /> Approve
-                                            </button>
-                                            <button
-                                                onClick={() => handleRejectRecruiter(recruiter._id)}
-                                                className="btn btn-danger flex items-center gap-2"
-                                            >
-                                                <FaTimes /> Reject
-                                            </button>
+                            <div>
+                                {pendingRecruiters.map((recruiter, index) => (
+                                    <div
+                                        key={recruiter._id}
+                                        className="p-6 transition-all duration-300 hover:bg-emerald-50/30 dark:hover:bg-emerald-900/10"
+                                        style={{ borderBottom: index < pendingRecruiters.length - 1 ? '1px solid var(--border-color)' : 'none' }}
+                                    >
+                                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                            <div className="flex items-start gap-4">
+                                                <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-fuchsia-600 rounded-xl flex items-center justify-center text-white font-bold flex-shrink-0 shadow-lg">
+                                                    {recruiter.name?.charAt(0)}
+                                                </div>
+                                                <div>
+                                                    <p className="font-bold" style={{ color: 'var(--text-primary)' }}>{recruiter.name}</p>
+                                                    <p className="text-sm" style={{ color: 'var(--text-muted)' }}>{recruiter.email}</p>
+                                                    <p className="text-sm mt-1" style={{ color: 'var(--text-secondary)' }}>Company: <strong>{recruiter.company}</strong></p>
+                                                </div>
+                                            </div>
+                                            <div className="flex items-center gap-3">
+                                                <button
+                                                    onClick={() => approveRecruiter(recruiter._id)}
+                                                    className="btn btn-success text-sm py-2 px-4 flex items-center gap-2"
+                                                >
+                                                    <FaCheckCircle /> Approve
+                                                </button>
+                                                <button
+                                                    onClick={() => rejectRecruiter(recruiter._id)}
+                                                    className="btn btn-danger text-sm py-2 px-4 flex items-center gap-2"
+                                                >
+                                                    <FaTimesCircle /> Reject
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 ))}
@@ -265,67 +209,67 @@ const AdminDashboard = () => {
                     </div>
                 )}
 
+                {/* All Users Tab */}
                 {activeTab === 'users' && (
-                    <div className="card">
-                        <div className="p-6 border-b border-gray-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
-                            <h3 className="font-semibold text-gray-900">All Users</h3>
-                            <select
-                                value={userFilter}
-                                onChange={(e) => setUserFilter(e.target.value)}
-                                className="input-field w-auto"
-                            >
-                                <option value="">All Roles</option>
-                                <option value="student">Students</option>
-                                <option value="recruiter">Recruiters</option>
-                                <option value="admin">Admins</option>
-                            </select>
+                    <div className="card fade-in overflow-x-auto">
+                        <div className="p-6" style={{ borderBottom: '1px solid var(--border-color)' }}>
+                            <h2 className="text-xl font-bold" style={{ color: 'var(--text-primary)', fontFamily: "'Outfit', sans-serif" }}>All Users</h2>
                         </div>
-                        <div className="overflow-x-auto">
-                            <table className="w-full">
-                                <thead className="bg-gray-50">
-                                    <tr>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Role</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="divide-y divide-gray-100">
-                                    {filteredUsers.map((u) => (
-                                        <tr key={u._id} className="hover:bg-gray-50">
-                                            <td className="px-6 py-4 text-sm font-medium text-gray-900">{u.name}</td>
-                                            <td className="px-6 py-4 text-sm text-gray-500">{u.email}</td>
-                                            <td className="px-6 py-4">
-                                                <span className={`badge ${u.role === 'student' ? 'bg-blue-100 text-blue-800' :
-                                                        u.role === 'recruiter' ? 'bg-green-100 text-green-800' :
-                                                            'bg-purple-100 text-purple-800'
-                                                    }`}>
-                                                    {u.role}
+
+                        <table className="w-full min-w-[600px]">
+                            <thead>
+                                <tr style={{ background: 'var(--bg-tertiary)' }}>
+                                    <th className="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>User</th>
+                                    <th className="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>Role</th>
+                                    <th className="text-left px-6 py-4 text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>Status</th>
+                                    <th className="text-right px-6 py-4 text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {allUsers.map((u, index) => (
+                                    <tr
+                                        key={u._id}
+                                        className="transition-all duration-300 hover:bg-emerald-50/30 dark:hover:bg-emerald-900/10"
+                                        style={{ borderBottom: index < allUsers.length - 1 ? '1px solid var(--border-color)' : 'none' }}
+                                    >
+                                        <td className="px-6 py-4">
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-9 h-9 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-full flex items-center justify-center text-white text-sm font-bold">
+                                                    {u.name?.charAt(0)}
+                                                </div>
+                                                <div>
+                                                    <p className="font-semibold text-sm" style={{ color: 'var(--text-primary)' }}>{u.name}</p>
+                                                    <p className="text-xs" style={{ color: 'var(--text-muted)' }}>{u.email}</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            <span className={`badge ${getRoleBadge(u.role)}`}>
+                                                {u.role}
+                                            </span>
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            {u.role === 'recruiter' && (
+                                                <span className={`badge ${u.isApproved ? 'badge-accepted' : 'badge-reviewed'}`}>
+                                                    {u.isApproved ? 'Approved' : 'Pending'}
                                                 </span>
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                {u.isApproved ? (
-                                                    <span className="badge bg-green-100 text-green-800">Approved</span>
-                                                ) : (
-                                                    <span className="badge bg-yellow-100 text-yellow-800">Pending</span>
-                                                )}
-                                            </td>
-                                            <td className="px-6 py-4">
-                                                {u.role !== 'admin' && (
-                                                    <button
-                                                        onClick={() => handleDeleteUser(u._id)}
-                                                        className="text-red-500 hover:text-red-700"
-                                                    >
-                                                        <FaTrash />
-                                                    </button>
-                                                )}
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
+                                            )}
+                                        </td>
+                                        <td className="px-6 py-4 text-right">
+                                            {u.role !== 'admin' && (
+                                                <button
+                                                    onClick={() => deleteUser(u._id)}
+                                                    className="text-red-500 hover:text-red-600 transition-colors p-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20"
+                                                    title="Delete User"
+                                                >
+                                                    <FaTrash />
+                                                </button>
+                                            )}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
                     </div>
                 )}
             </div>

@@ -2,26 +2,24 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { jobsAPI, applicationsAPI } from '../services/api';
 import { useAuth } from '../context/AuthContext';
-import { FaBriefcase, FaUsers, FaEye, FaPlusCircle, FaEdit, FaTrash, FaCheckCircle, FaTimesCircle, FaClock, FaExclamationTriangle } from 'react-icons/fa';
+import AnimatedSection from '../components/AnimatedSection';
+import { FaBriefcase, FaUsers, FaPlus, FaTrash, FaEye, FaTimes, FaClock, FaCheckCircle, FaTimesCircle, FaFileAlt, FaArrowRight } from 'react-icons/fa';
 
 const RecruiterDashboard = () => {
-    const { user, isApproved } = useAuth();
+    const { user } = useAuth();
     const [jobs, setJobs] = useState([]);
-    const [applications, setApplications] = useState([]);
     const [loading, setLoading] = useState(true);
     const [selectedJob, setSelectedJob] = useState(null);
-    const [showApplications, setShowApplications] = useState(false);
-    const [jobApplications, setJobApplications] = useState([]);
-    const [loadingApps, setLoadingApps] = useState(false);
+    const [applications, setApplications] = useState([]);
+    const [appLoading, setAppLoading] = useState(false);
 
     useEffect(() => {
-        if (isApproved) {
+        if (user?.isApproved) {
             fetchJobs();
-            fetchAllApplications();
         } else {
             setLoading(false);
         }
-    }, [isApproved]);
+    }, [user]);
 
     const fetchJobs = async () => {
         try {
@@ -33,240 +31,240 @@ const RecruiterDashboard = () => {
         setLoading(false);
     };
 
-    const fetchAllApplications = async () => {
+    const fetchApplications = async (jobId) => {
+        setAppLoading(true);
         try {
-            const response = await applicationsAPI.getRecruiterApplications();
+            const response = await applicationsAPI.getJobApplications(jobId);
             setApplications(response.data);
+            setSelectedJob(jobId);
         } catch (err) {
             console.error('Failed to fetch applications:', err);
         }
+        setAppLoading(false);
     };
 
-    const fetchJobApplications = async (jobId) => {
-        setLoadingApps(true);
+    const updateApplicationStatus = async (applicationId, status) => {
         try {
-            const response = await applicationsAPI.getJobApplications(jobId);
-            setJobApplications(response.data);
-        } catch (err) {
-            console.error('Failed to fetch job applications:', err);
-        }
-        setLoadingApps(false);
-    };
-
-    const handleViewApplications = (job) => {
-        setSelectedJob(job);
-        setShowApplications(true);
-        fetchJobApplications(job._id);
-    };
-
-    const handleUpdateStatus = async (applicationId, status) => {
-        try {
-            await applicationsAPI.updateStatus(applicationId, { status });
-            fetchJobApplications(selectedJob._id);
-            fetchAllApplications();
+            await applicationsAPI.updateStatus(applicationId, status);
+            setApplications(applications.map(app =>
+                app._id === applicationId ? { ...app, status } : app
+            ));
         } catch (err) {
             console.error('Failed to update status:', err);
         }
     };
 
-    const handleDeleteJob = async (jobId) => {
-        if (!window.confirm('Are you sure you want to delete this job? All applications will also be deleted.')) {
-            return;
-        }
-        try {
-            await jobsAPI.delete(jobId);
-            fetchJobs();
-        } catch (err) {
-            console.error('Failed to delete job:', err);
+    const deleteJob = async (jobId) => {
+        if (window.confirm('Are you sure you want to delete this job?')) {
+            try {
+                await jobsAPI.delete(jobId);
+                setJobs(jobs.filter(j => j._id !== jobId));
+                if (selectedJob === jobId) {
+                    setSelectedJob(null);
+                    setApplications([]);
+                }
+            } catch (err) {
+                console.error('Failed to delete job:', err);
+            }
         }
     };
 
-    const stats = {
-        totalJobs: jobs.length,
-        activeJobs: jobs.filter(j => j.isActive).length,
-        totalApplications: applications.length,
-        pending: applications.filter(a => a.status === 'Applied').length
+    const getStatusBadge = (status) => {
+        const styles = {
+            'Applied': 'badge-applied',
+            'Reviewed': 'badge-reviewed',
+            'Shortlisted': 'badge-shortlisted',
+            'Accepted': 'badge-accepted',
+            'Rejected': 'badge-rejected'
+        };
+        return styles[status] || 'badge-applied';
+    };
+
+    const getStatusIcon = (status) => {
+        const icons = {
+            'Applied': <FaClock className="text-blue-500 text-sm" />,
+            'Reviewed': <FaEye className="text-amber-500 text-sm" />,
+            'Shortlisted': <FaFileAlt className="text-purple-500 text-sm" />,
+            'Accepted': <FaCheckCircle className="text-emerald-500 text-sm" />,
+            'Rejected': <FaTimesCircle className="text-red-500 text-sm" />
+        };
+        return icons[status] || <FaClock className="text-blue-500 text-sm" />;
     };
 
     // Pending approval screen
-    if (!isApproved) {
+    if (!user?.isApproved) {
         return (
-            <div className="page-container min-h-screen flex items-center justify-center bg-gray-50">
-                <div className="card max-w-md w-full mx-4 p-8 text-center">
-                    <FaExclamationTriangle className="text-6xl text-yellow-500 mx-auto mb-4" />
-                    <h2 className="text-2xl font-bold text-gray-900 mb-4">Account Pending Approval</h2>
-                    <p className="text-gray-600 mb-6">
-                        Your recruiter account is pending admin approval. You will be able to post jobs once approved.
+            <div className="page-container min-h-screen flex items-center justify-center" style={{ background: 'var(--bg-primary)' }}>
+                <div className="card max-w-lg mx-4 p-12 text-center scale-in">
+                    <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-amber-400 to-orange-500 rounded-3xl flex items-center justify-center text-white shadow-xl float glow-ring">
+                        <FaClock className="text-3xl" />
+                    </div>
+                    <h2 className="text-2xl font-extrabold mb-3" style={{ color: 'var(--text-primary)', fontFamily: "'Outfit', sans-serif" }}>Pending Approval</h2>
+                    <p className="text-lg" style={{ color: 'var(--text-secondary)' }}>
+                        Your recruiter account is under review. You'll be able to post jobs once an admin approves your account.
                     </p>
-                    <Link to="/" className="btn btn-primary">
-                        Go to Home
-                    </Link>
                 </div>
             </div>
         );
     }
 
+    const totalApplications = jobs.reduce((sum, job) => sum + (job.applicationCount || 0), 0);
+
+    const statItems = [
+        { value: jobs.length, label: 'Total Jobs', icon: <FaBriefcase className="text-3xl text-emerald-300" /> },
+        { value: totalApplications, label: 'Applications', icon: <FaUsers className="text-3xl text-cyan-300" /> },
+    ];
+
     return (
-        <div className="page-container bg-gray-50 min-h-screen">
+        <div className="page-container min-h-screen" style={{ background: 'var(--bg-tertiary)' }}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 {/* Welcome Header */}
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-                    <div>
-                        <h1 className="text-3xl font-bold text-gray-900">
-                            Welcome, <span className="gradient-text">{user?.name}</span>!
-                        </h1>
-                        <p className="text-gray-600 mt-1">{user?.company}</p>
-                    </div>
-                    <Link to="/recruiter/post-job" className="btn btn-primary flex items-center gap-2">
-                        <FaPlusCircle /> Post New Job
-                    </Link>
-                </div>
+                <AnimatedSection animation="blur-in" className="mb-8">
+                    <h1 className="text-3xl font-extrabold tracking-tight" style={{ color: 'var(--text-primary)', fontFamily: "'Outfit', sans-serif" }}>
+                        Welcome back, <span className="gradient-text">{user?.name?.split(' ')[0]}</span>!
+                    </h1>
+                    <p className="mt-2" style={{ color: 'var(--text-secondary)' }}>Manage your job postings and track applications.</p>
+                </AnimatedSection>
 
-                {/* Stats Cards */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                    <div className="stat-card">
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <p className="stat-card-value">{stats.totalJobs}</p>
-                                <p className="stat-card-label">Total Jobs</p>
+                {/* Stats */}
+                <AnimatedSection animation="fade-in-up" stagger className="grid grid-cols-2 md:grid-cols-2 gap-6 mb-8">
+                    {statItems.map((item, index) => (
+                        <div key={index} className="stat-card card-tilt">
+                            <div className="flex items-center justify-between">
+                                <div>
+                                    <p className="stat-card-value">{item.value}</p>
+                                    <p className="stat-card-label">{item.label}</p>
+                                </div>
+                                {item.icon}
                             </div>
-                            <FaBriefcase className="text-3xl text-indigo-200" />
                         </div>
-                    </div>
-                    <div className="stat-card">
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <p className="stat-card-value text-green-600">{stats.activeJobs}</p>
-                                <p className="stat-card-label">Active Jobs</p>
-                            </div>
-                            <FaCheckCircle className="text-3xl text-green-200" />
-                        </div>
-                    </div>
-                    <div className="stat-card">
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <p className="stat-card-value text-blue-600">{stats.totalApplications}</p>
-                                <p className="stat-card-label">Total Applications</p>
-                            </div>
-                            <FaUsers className="text-3xl text-blue-200" />
-                        </div>
-                    </div>
-                    <div className="stat-card">
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <p className="stat-card-value text-yellow-600">{stats.pending}</p>
-                                <p className="stat-card-label">Pending Review</p>
-                            </div>
-                            <FaClock className="text-3xl text-yellow-200" />
-                        </div>
-                    </div>
-                </div>
+                    ))}
+                </AnimatedSection>
+
+                {/* Post Job CTA */}
+                <AnimatedSection animation="slide-in-left" delay={200} className="flex flex-wrap gap-4 mb-8">
+                    <Link to="/recruiter/post-job" className="btn btn-primary btn-ripple flex items-center gap-2">
+                        <FaPlus /> Post New Job
+                    </Link>
+                </AnimatedSection>
 
                 {/* Jobs List */}
-                <div className="card">
-                    <div className="p-6 border-b border-gray-100">
-                        <h2 className="text-xl font-semibold text-gray-900">My Job Postings</h2>
-                    </div>
+                <AnimatedSection animation="tilt-in" delay={300}>
+                    <div className="card mb-6">
+                        <div className="p-6" style={{ borderBottom: '1px solid var(--border-color)' }}>
+                            <h2 className="text-xl font-bold" style={{ color: 'var(--text-primary)', fontFamily: "'Outfit', sans-serif" }}>Your Job Postings</h2>
+                        </div>
 
-                    {loading ? (
-                        <div className="flex justify-center py-12">
-                            <div className="spinner"></div>
-                        </div>
-                    ) : jobs.length === 0 ? (
-                        <div className="text-center py-12">
-                            <FaBriefcase className="text-5xl text-gray-300 mx-auto mb-4" />
-                            <h3 className="text-lg font-medium text-gray-700 mb-2">No Jobs Posted</h3>
-                            <p className="text-gray-500 mb-4">Start posting jobs to find talented candidates.</p>
-                            <Link to="/recruiter/post-job" className="btn btn-primary">
-                                Post Your First Job
-                            </Link>
-                        </div>
-                    ) : (
-                        <div className="divide-y divide-gray-100">
-                            {jobs.map((job) => (
-                                <div key={job._id} className="p-6 hover:bg-gray-50 transition-colors">
-                                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                                        <div>
-                                            <h3 className="font-semibold text-gray-900">
-                                                <Link to={`/jobs/${job._id}`} className="hover:text-indigo-600">
-                                                    {job.title}
-                                                </Link>
-                                            </h3>
-                                            <p className="text-gray-500 text-sm">{job.location} • {job.jobType}</p>
-                                            <p className="text-gray-400 text-xs mt-1">
-                                                Posted on {new Date(job.createdAt).toLocaleDateString()}
-                                            </p>
-                                        </div>
-                                        <div className="flex items-center gap-4">
-                                            <button
-                                                onClick={() => handleViewApplications(job)}
-                                                className="flex items-center gap-2 text-indigo-600 hover:text-indigo-700"
-                                            >
-                                                <FaEye /> {job.applicationsCount || 0} Applications
-                                            </button>
-                                            <button
-                                                onClick={() => handleDeleteJob(job._id)}
-                                                className="text-red-500 hover:text-red-600"
-                                            >
-                                                <FaTrash />
-                                            </button>
+                        {loading ? (
+                            <div className="flex justify-center py-12">
+                                <div className="spinner"></div>
+                            </div>
+                        ) : jobs.length === 0 ? (
+                            <div className="text-center py-16">
+                                <div className="w-20 h-20 mx-auto mb-5 rounded-2xl flex items-center justify-center float" style={{ background: 'var(--bg-tertiary)' }}>
+                                    <FaBriefcase className="text-3xl" style={{ color: 'var(--text-muted)' }} />
+                                </div>
+                                <h3 className="text-lg font-bold mb-2" style={{ color: 'var(--text-primary)' }}>No Jobs Posted Yet</h3>
+                                <p className="mb-5" style={{ color: 'var(--text-secondary)' }}>Create your first job listing.</p>
+                                <Link to="/recruiter/post-job" className="btn btn-primary">
+                                    Post a Job
+                                </Link>
+                            </div>
+                        ) : (
+                            <div>
+                                {jobs.map((job, index) => (
+                                    <div
+                                        key={job._id}
+                                        className={`p-6 transition-all duration-300 hover:bg-emerald-50/30 dark:hover:bg-emerald-900/10 ${selectedJob === job._id ? 'bg-emerald-50/40 dark:bg-emerald-900/15' : ''}`}
+                                        style={{ borderBottom: index < jobs.length - 1 ? '1px solid var(--border-color)' : 'none' }}
+                                    >
+                                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                            <div>
+                                                <h3 className="font-bold text-lg mb-1" style={{ color: 'var(--text-primary)' }}>{job.title}</h3>
+                                                <div className="flex flex-wrap gap-3 text-sm" style={{ color: 'var(--text-muted)' }}>
+                                                    <span>{job.location}</span>
+                                                    <span>•</span>
+                                                    <span className="capitalize">{job.jobType?.replace('-', ' ')}</span>
+                                                    <span>•</span>
+                                                    <span>{job.applicationCount || 0} applicants</span>
+                                                </div>
+                                            </div>
+                                            <div className="flex items-center gap-3">
+                                                <button
+                                                    onClick={() => fetchApplications(job._id)}
+                                                    className="btn btn-outline text-sm py-2 px-4 flex items-center gap-2"
+                                                >
+                                                    <FaEye /> View Applications
+                                                </button>
+                                                <button
+                                                    onClick={() => deleteJob(job._id)}
+                                                    className="btn btn-danger text-sm py-2 px-4 flex items-center gap-2"
+                                                >
+                                                    <FaTrash /> Delete
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            ))}
-                        </div>
-                    )}
-                </div>
-            </div>
-
-            {/* Applications Modal */}
-            {showApplications && (
-                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-2xl max-w-3xl w-full max-h-[80vh] overflow-hidden fade-in">
-                        <div className="p-6 border-b border-gray-100 flex justify-between items-center">
-                            <div>
-                                <h2 className="text-xl font-bold text-gray-900">Applications</h2>
-                                <p className="text-gray-500">{selectedJob?.title}</p>
+                                ))}
                             </div>
-                            <button
-                                onClick={() => setShowApplications(false)}
-                                className="text-gray-400 hover:text-gray-600"
-                            >
-                                <FaTimesCircle className="text-2xl" />
-                            </button>
-                        </div>
+                        )}
+                    </div>
+                </AnimatedSection>
 
-                        <div className="overflow-y-auto max-h-[60vh]">
-                            {loadingApps ? (
+                {/* Applications Modal */}
+                {selectedJob && (
+                    <div className="fixed inset-0 flex items-center justify-center z-50 p-4" style={{ backgroundColor: 'var(--modal-overlay)' }}>
+                        <div className="card max-w-3xl w-full max-h-[85vh] overflow-y-auto fade-in-up" style={{ background: 'var(--bg-secondary)' }}>
+                            <div className="sticky top-0 p-6 flex items-center justify-between" style={{ background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border-color)', zIndex: 10 }}>
+                                <h2 className="text-xl font-bold" style={{ color: 'var(--text-primary)', fontFamily: "'Outfit', sans-serif" }}>
+                                    Applications ({applications.length})
+                                </h2>
+                                <button
+                                    onClick={() => { setSelectedJob(null); setApplications([]); }}
+                                    className="p-2 rounded-xl transition-colors hover:bg-gray-200 dark:hover:bg-gray-700"
+                                    style={{ color: 'var(--text-muted)' }}
+                                >
+                                    <FaTimes />
+                                </button>
+                            </div>
+
+                            {appLoading ? (
                                 <div className="flex justify-center py-12">
                                     <div className="spinner"></div>
                                 </div>
-                            ) : jobApplications.length === 0 ? (
-                                <div className="text-center py-12">
-                                    <p className="text-gray-500">No applications yet.</p>
+                            ) : applications.length === 0 ? (
+                                <div className="text-center py-16">
+                                    <p style={{ color: 'var(--text-secondary)' }}>No applications yet for this job.</p>
                                 </div>
                             ) : (
-                                <div className="divide-y divide-gray-100">
-                                    {jobApplications.map((app) => (
-                                        <div key={app._id} className="p-6">
+                                <div className="p-6 space-y-4">
+                                    {applications.map((app) => (
+                                        <div key={app._id} className="p-4 rounded-xl border transition-all duration-300 hover:shadow-md"
+                                            style={{ background: 'var(--card-bg)', borderColor: 'var(--card-border)' }}>
                                             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                                                <div>
-                                                    <h3 className="font-semibold text-gray-900">{app.student?.name}</h3>
-                                                    <p className="text-gray-500 text-sm">{app.student?.email}</p>
-                                                    <a
-                                                        href={`${import.meta.env.VITE_API_URL || ''}/${app.resume ? app.resume.replace(/\\/g, '/') : ''}`}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="text-indigo-600 text-sm hover:underline"
-                                                    >
-                                                        View Resume
-                                                    </a>
+                                                <div className="flex items-start gap-3">
+                                                    <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
+                                                        {app.student?.name?.charAt(0)}
+                                                    </div>
+                                                    <div>
+                                                        <p className="font-bold" style={{ color: 'var(--text-primary)' }}>{app.student?.name}</p>
+                                                        <p className="text-sm" style={{ color: 'var(--text-muted)' }}>{app.student?.email}</p>
+                                                        <p className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>
+                                                            Applied: {new Date(app.createdAt).toLocaleDateString()}
+                                                        </p>
+                                                    </div>
                                                 </div>
-                                                <div className="flex items-center gap-2">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="flex items-center gap-1.5">
+                                                        {getStatusIcon(app.status)}
+                                                        <span className={`badge ${getStatusBadge(app.status)}`}>
+                                                            {app.status}
+                                                        </span>
+                                                    </div>
                                                     <select
                                                         value={app.status}
-                                                        onChange={(e) => handleUpdateStatus(app._id, e.target.value)}
-                                                        className="input-field py-2 text-sm"
+                                                        onChange={(e) => updateApplicationStatus(app._id, e.target.value)}
+                                                        className="input-field text-sm py-1.5 px-3"
                                                     >
                                                         <option value="Applied">Applied</option>
                                                         <option value="Reviewed">Reviewed</option>
@@ -276,14 +274,20 @@ const RecruiterDashboard = () => {
                                                     </select>
                                                 </div>
                                             </div>
+                                            {app.coverLetter && (
+                                                <div className="mt-3 p-4 rounded-xl text-sm" style={{ background: 'var(--bg-tertiary)', color: 'var(--text-secondary)' }}>
+                                                    <p className="font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>Cover Letter</p>
+                                                    {app.coverLetter}
+                                                </div>
+                                            )}
                                         </div>
                                     ))}
                                 </div>
                             )}
                         </div>
                     </div>
-                </div>
-            )}
+                )}
+            </div>
         </div>
     );
 };
