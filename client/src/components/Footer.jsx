@@ -13,7 +13,7 @@ const Footer = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
                 <div className="grid md:grid-cols-4 gap-10">
                     <div className="col-span-1">
-                        <Link to="/" className="flex items-center gap-2.5 text-2xl font-bold text-white mb-5 group">
+                        <Link to="/" onClick={scrollToTop} className="flex items-center gap-2.5 text-2xl font-bold text-white mb-5 group">
                             <div className="w-9 h-9 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-emerald-500/30 transition-all duration-400">
                                 <FaBriefcase className="text-white text-lg" />
                             </div>
@@ -24,23 +24,23 @@ const Footer = () => {
                     <div>
                         <h3 className="text-white font-bold mb-5 text-sm uppercase tracking-wider">For Students</h3>
                         <ul className="space-y-3 text-sm">
-                            <li><Link to="/jobs" className="text-gray-400 hover:text-emerald-400 transition-colors duration-300 hover:translate-x-1 inline-block">Browse Jobs</Link></li>
-                            <li><Link to="/register" className="text-gray-400 hover:text-emerald-400 transition-colors duration-300 hover:translate-x-1 inline-block">Create Account</Link></li>
-                            <li><Link to="/login" className="text-gray-400 hover:text-emerald-400 transition-colors duration-300 hover:translate-x-1 inline-block">Student Login</Link></li>
+                            <li><Link to="/jobs" onClick={scrollToTop} className="text-gray-400 hover:text-emerald-400 transition-colors duration-300 hover:translate-x-1 inline-block">Browse Jobs</Link></li>
+                            <li><Link to="/register" onClick={scrollToTop} className="text-gray-400 hover:text-emerald-400 transition-colors duration-300 hover:translate-x-1 inline-block">Create Account</Link></li>
+                            <li><Link to="/login" onClick={scrollToTop} className="text-gray-400 hover:text-emerald-400 transition-colors duration-300 hover:translate-x-1 inline-block">Student Login</Link></li>
                         </ul>
                     </div>
                     <div>
                         <h3 className="text-white font-bold mb-5 text-sm uppercase tracking-wider">For Recruiters</h3>
                         <ul className="space-y-3 text-sm">
-                            <li><Link to="/register" className="text-gray-400 hover:text-emerald-400 transition-colors duration-300 hover:translate-x-1 inline-block">Post a Job</Link></li>
-                            <li><Link to="/login" className="text-gray-400 hover:text-emerald-400 transition-colors duration-300 hover:translate-x-1 inline-block">Recruiter Login</Link></li>
+                            <li><Link to="/register" onClick={scrollToTop} className="text-gray-400 hover:text-emerald-400 transition-colors duration-300 hover:translate-x-1 inline-block">Post a Job</Link></li>
+                            <li><Link to="/login" onClick={scrollToTop} className="text-gray-400 hover:text-emerald-400 transition-colors duration-300 hover:translate-x-1 inline-block">Recruiter Login</Link></li>
                         </ul>
                     </div>
                     <div>
                         <h3 className="text-white font-bold mb-5 text-sm uppercase tracking-wider">Connect</h3>
                         <div className="flex gap-3">
                             {[FaFacebook, FaTwitter, FaLinkedin, FaInstagram].map((Icon, i) => (
-                                <a key={i} href="#" className="w-10 h-10 rounded-xl flex items-center justify-center text-gray-400 border border-gray-700 hover:border-emerald-500 hover:bg-emerald-600 hover:text-white transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/20">
+                                <a key={i} href="#" onClick={scrollToTop} className="w-10 h-10 rounded-xl flex items-center justify-center text-gray-400 border border-gray-700 hover:border-emerald-500 hover:bg-emerald-600 hover:text-white transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/20">
                                     <Icon />
                                 </a>
                             ))}
