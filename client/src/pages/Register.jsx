@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { FaUser, FaEnvelope, FaLock, FaUserPlus, FaBriefcase, FaBuilding, FaPhone } from 'react-icons/fa';
+
 
 const Register = () => {
     const [formData, setFormData] = useState({ name: '', email: '', password: '', confirmPassword: '', role: 'student', company: '', phone: '' });
@@ -32,9 +32,6 @@ const Register = () => {
             <div className="w-full max-w-md mx-4 fade-in-up">
                 <div className="text-center mb-8">
                     <Link to="/" className="inline-flex items-center gap-2.5 text-3xl font-bold group">
-                        <div className="w-11 h-11 bg-gradient-to-br from-violet-500 to-indigo-600 rounded-xl flex items-center justify-center text-white shadow-lg group-hover:shadow-violet-500/30 transition-all duration-400">
-                            <FaBriefcase className="text-xl" />
-                        </div>
                         <span className="gradient-text font-extrabold tracking-tight">JobPortal</span>
                     </Link>
                     <p className="mt-3 text-sm" style={{ color: 'var(--text-secondary)' }}>Create your account to get started.</p>
@@ -49,46 +46,40 @@ const Register = () => {
                                 <button type="button" onClick={() => setFormData({ ...formData, role: 'student' })}
                                     className={`p-4 border-2 rounded-xl flex flex-col items-center gap-2.5 transition-all duration-300 ${formData.role === 'student' ? 'border-violet-500 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 shadow-md shadow-violet-500/10' : 'hover:border-gray-300 dark:hover:border-gray-500'}`}
                                     style={formData.role !== 'student' ? { borderColor: 'var(--input-border)', color: 'var(--text-secondary)' } : {}}>
-                                    <FaUser className="text-2xl" /><span className="font-bold text-sm">Student</span>
+                                    <span className="font-bold text-sm">Student</span>
                                 </button>
                                 <button type="button" onClick={() => setFormData({ ...formData, role: 'recruiter' })}
                                     className={`p-4 border-2 rounded-xl flex flex-col items-center gap-2.5 transition-all duration-300 ${formData.role === 'recruiter' ? 'border-violet-500 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 shadow-md shadow-violet-500/10' : 'hover:border-gray-300 dark:hover:border-gray-500'}`}
                                     style={formData.role !== 'recruiter' ? { borderColor: 'var(--input-border)', color: 'var(--text-secondary)' } : {}}>
-                                    <FaBuilding className="text-2xl" /><span className="font-bold text-sm">Recruiter</span>
+                                    <span className="font-bold text-sm">Recruiter</span>
                                 </button>
                             </div>
                         </div>
                         <div>
                             <label className="block text-sm font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>Full Name</label>
-                            <div className="relative"><FaUser className="absolute left-4 top-1/2 -translate-y-1/2 text-sm" style={{ color: 'var(--text-muted)' }} />
-                                <input type="text" name="name" value={formData.name} onChange={handleChange} className="input-field pl-11" placeholder="Enter your full name" required /></div>
+                            <input type="text" name="name" value={formData.name} onChange={handleChange} className="input-field" placeholder="Enter your full name" required />
                         </div>
                         <div>
                             <label className="block text-sm font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>Email Address</label>
-                            <div className="relative"><FaEnvelope className="absolute left-4 top-1/2 -translate-y-1/2 text-sm" style={{ color: 'var(--text-muted)' }} />
-                                <input type="email" name="email" value={formData.email} onChange={handleChange} className="input-field pl-11" placeholder="Enter your email" required /></div>
+                            <input type="email" name="email" value={formData.email} onChange={handleChange} className="input-field" placeholder="Enter your email" required />
                         </div>
                         {formData.role === 'recruiter' && (
                             <div className="fade-in">
                                 <label className="block text-sm font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>Company Name</label>
-                                <div className="relative"><FaBuilding className="absolute left-4 top-1/2 -translate-y-1/2 text-sm" style={{ color: 'var(--text-muted)' }} />
-                                    <input type="text" name="company" value={formData.company} onChange={handleChange} className="input-field pl-11" placeholder="Enter your company name" required /></div>
+                                <input type="text" name="company" value={formData.company} onChange={handleChange} className="input-field" placeholder="Enter your company name" required />
                             </div>
                         )}
                         <div>
                             <label className="block text-sm font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>Phone Number (Optional)</label>
-                            <div className="relative"><FaPhone className="absolute left-4 top-1/2 -translate-y-1/2 text-sm" style={{ color: 'var(--text-muted)' }} />
-                                <input type="tel" name="phone" value={formData.phone} onChange={handleChange} className="input-field pl-11" placeholder="Enter your phone number" /></div>
+                            <input type="tel" name="phone" value={formData.phone} onChange={handleChange} className="input-field" placeholder="Enter your phone number" />
                         </div>
                         <div>
                             <label className="block text-sm font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>Password</label>
-                            <div className="relative"><FaLock className="absolute left-4 top-1/2 -translate-y-1/2 text-sm" style={{ color: 'var(--text-muted)' }} />
-                                <input type="password" name="password" value={formData.password} onChange={handleChange} className="input-field pl-11" placeholder="Create a password" required /></div>
+                            <input type="password" name="password" value={formData.password} onChange={handleChange} className="input-field" placeholder="Create a password" required />
                         </div>
                         <div>
                             <label className="block text-sm font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>Confirm Password</label>
-                            <div className="relative"><FaLock className="absolute left-4 top-1/2 -translate-y-1/2 text-sm" style={{ color: 'var(--text-muted)' }} />
-                                <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} className="input-field pl-11" placeholder="Confirm your password" required /></div>
+                            <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} className="input-field" placeholder="Confirm your password" required />
                         </div>
                         {formData.role === 'recruiter' && (
                             <div className="p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/50 rounded-xl text-amber-700 dark:text-amber-400 text-sm font-medium fade-in">
@@ -96,7 +87,7 @@ const Register = () => {
                             </div>
                         )}
                         <button type="submit" disabled={loading} className="w-full btn btn-primary flex items-center justify-center gap-2 py-3.5">
-                            {loading ? <div className="spinner w-5 h-5 border-2"></div> : <><FaUserPlus /> Create Account</>}
+                            {loading ? <div className="spinner w-5 h-5 border-2"></div> : 'Create Account'}
                         </button>
                     </form>
                     <div className="mt-8 text-center text-sm" style={{ color: 'var(--text-secondary)' }}>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { FaEnvelope, FaLock, FaSignInAlt, FaBriefcase } from 'react-icons/fa';
+
 
 const Login = () => {
     const [formData, setFormData] = useState({ email: '', password: '' });
@@ -31,9 +31,6 @@ const Login = () => {
             <div className="w-full max-w-md mx-4 fade-in-up">
                 <div className="text-center mb-8">
                     <Link to="/" className="inline-flex items-center gap-2.5 text-3xl font-bold group">
-                        <div className="w-11 h-11 bg-gradient-to-br from-violet-500 to-indigo-600 rounded-xl flex items-center justify-center text-white shadow-lg group-hover:shadow-violet-500/30 transition-all duration-400">
-                            <FaBriefcase className="text-xl" />
-                        </div>
                         <span className="gradient-text font-extrabold tracking-tight">JobPortal</span>
                     </Link>
                     <p className="mt-3 text-sm" style={{ color: 'var(--text-secondary)' }}>Welcome back! Please login to continue.</p>
@@ -44,20 +41,14 @@ const Login = () => {
                     <form onSubmit={handleSubmit} className="space-y-5">
                         <div>
                             <label className="block text-sm font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>Email Address</label>
-                            <div className="relative">
-                                <FaEnvelope className="absolute left-4 top-1/2 -translate-y-1/2 text-sm" style={{ color: 'var(--text-muted)' }} />
-                                <input type="email" name="email" value={formData.email} onChange={handleChange} className="input-field pl-11" placeholder="Enter your email" required />
-                            </div>
+                            <input type="email" name="email" value={formData.email} onChange={handleChange} className="input-field" placeholder="Enter your email" required />
                         </div>
                         <div>
                             <label className="block text-sm font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>Password</label>
-                            <div className="relative">
-                                <FaLock className="absolute left-4 top-1/2 -translate-y-1/2 text-sm" style={{ color: 'var(--text-muted)' }} />
-                                <input type="password" name="password" value={formData.password} onChange={handleChange} className="input-field pl-11" placeholder="Enter your password" required />
-                            </div>
+                            <input type="password" name="password" value={formData.password} onChange={handleChange} className="input-field" placeholder="Enter your password" required />
                         </div>
                         <button type="submit" disabled={loading} className="w-full btn btn-primary btn-ripple flex items-center justify-center gap-2 py-3.5">
-                            {loading ? <div className="spinner w-5 h-5 border-2"></div> : <><FaSignInAlt /> Sign In</>}
+                            {loading ? <div className="spinner w-5 h-5 border-2"></div> : 'Sign In'}
                         </button>
                     </form>
                     <div className="mt-8 text-center text-sm" style={{ color: 'var(--text-secondary)' }}>
