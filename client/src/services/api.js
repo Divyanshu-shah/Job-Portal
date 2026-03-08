@@ -88,6 +88,7 @@ export const applicationsAPI = {
 export const adminAPI = {
     getStats: () => api.get('/admin/stats'),
     getUsers: (params) => api.get('/admin/users', { params }),
+    getAllUsers: () => api.get('/admin/users'),
     getPendingRecruiters: () => api.get('/admin/recruiters/pending'),
     approveRecruiter: (id) => api.put(`/admin/recruiters/${id}/approve`),
     rejectRecruiter: (id) => api.delete(`/admin/recruiters/${id}/reject`),
