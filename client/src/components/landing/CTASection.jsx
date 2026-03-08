@@ -47,7 +47,7 @@ const CTASection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-16 sm:py-24 md:py-32 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #111827 0%, #2e1065 50%, #111827 100%)' }}>
+    <section ref={sectionRef} className="py-16 sm:py-24 md:py-32 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #080510 0%, #2e1065 50%, #080510 100%)' }}>
       {/* Animated background blobs */}
       <div ref={bg1Ref} className="absolute top-10 left-10 w-80 h-80 bg-violet-600/15 rounded-full blur-[120px] pointer-events-none" />
       <div ref={bg2Ref} className="absolute bottom-10 right-10 w-80 h-80 bg-violet-600/10 rounded-full blur-[120px] pointer-events-none" />

@@ -49,7 +49,7 @@ const LandingFooter = () => {
   }, []);
 
   return (
-    <footer ref={footerRef} className="relative overflow-hidden" style={{ background: 'linear-gradient(180deg, #111827 0%, #030712 100%)' }}>
+    <footer ref={footerRef} className="relative overflow-hidden" style={{ background: 'linear-gradient(180deg, #0f0a1e 0%, #080510 100%)' }}>
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-500/40 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-8">
@@ -105,7 +105,7 @@ const LandingFooter = () => {
             <h3 className="text-white font-bold mb-5 text-sm uppercase tracking-wider">Connect</h3>
             <div className="flex flex-wrap gap-3">
               {socialLinks.map(({ Icon, label }, i) => (
-                <a key={i} href="#" aria-label={label} className="w-10 h-10 rounded-xl flex items-center justify-center text-gray-400 border border-gray-800 hover:border-violet-500 hover:bg-violet-600 hover:text-white transition-all duration-300 hover:shadow-lg hover:shadow-violet-500/20">
+                <a key={i} href="#" aria-label={label} className="w-10 h-10 rounded-xl flex items-center justify-center text-gray-400 border border-violet-900/50 hover:border-violet-500 hover:bg-violet-600 hover:text-white transition-all duration-300 hover:shadow-lg hover:shadow-violet-500/20">
                   <Icon />
                 </a>
               ))}
@@ -114,11 +114,11 @@ const LandingFooter = () => {
         </div>
 
         {/* Bottom bar */}
-        <div className="pt-8 border-t border-gray-800/80 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="pt-8 border-t border-violet-900/40 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-gray-500">© {new Date().getFullYear()} JobPortal. All rights reserved.</p>
           <div className="flex items-center gap-4">
             <p className="text-sm text-gray-500 flex items-center gap-1.5">Made with <FaHeart className="text-red-400 text-xs" /> for students</p>
-            <button onClick={scrollToTop} className="w-9 h-9 rounded-xl border border-gray-800 flex items-center justify-center text-gray-400 hover:border-violet-500 hover:bg-violet-600 hover:text-white transition-all duration-300" aria-label="Scroll to top">
+            <button onClick={scrollToTop} className="w-9 h-9 rounded-xl border border-violet-900/50 flex items-center justify-center text-gray-400 hover:border-violet-500 hover:bg-violet-600 hover:text-white transition-all duration-300" aria-label="Scroll to top">
               <FaArrowUp className="text-sm" />
             </button>
           </div>

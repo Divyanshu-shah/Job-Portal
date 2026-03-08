@@ -37,22 +37,22 @@
 }
 
 .dark {
-  --bg-primary: #0c1220;
-  --bg-secondary: #141e30;
-  --bg-tertiary: #1b2842;
+  --bg-primary: #080510;
+  --bg-secondary: #0f0a1e;
+  --bg-tertiary: #150e2a;
   --text-primary: #f3f4f6;
   --text-secondary: #9ca3af;
   --text-muted: #6b7280;
-  --border-color: #1f3050;
-  --card-bg: rgba(20, 30, 48, 0.78);
-  --card-border: rgba(31, 48, 80, 0.6);
+  --border-color: #251745;
+  --card-bg: rgba(15, 10, 30, 0.78);
+  --card-border: rgba(37, 23, 69, 0.6);
   --card-shadow: 0 4px 24px rgba(0, 0, 0, 0.28), 0 1px 3px rgba(0, 0, 0, 0.18);
   --card-shadow-hover: 0 20px 50px rgba(0, 0, 0, 0.42), 0 4px 12px rgba(0, 0, 0, 0.25);
-  --input-bg: #141e30;
-  --input-border: #1f3050;
-  --nav-bg: rgba(12, 18, 32, 0.8);
+  --input-bg: #0f0a1e;
+  --input-border: #251745;
+  --nav-bg: rgba(8, 5, 16, 0.85);
   --nav-shadow: 0 1px 3px rgba(0, 0, 0, 0.22), 0 4px 24px rgba(0, 0, 0, 0.14);
-  --glass-bg: rgba(20, 30, 48, 0.5);
+  --glass-bg: rgba(15, 10, 30, 0.5);
   --modal-overlay: rgba(0, 0, 0, 0.65);
 }
 

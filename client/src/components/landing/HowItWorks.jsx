@@ -96,7 +96,7 @@ const HowItWorks = () => {
                 </div>
 
                 {/* Center dot */}
-                <div className="hidden md:flex w-5 h-5 rounded-full bg-gradient-to-br from-violet-500 to-indigo-500 shadow-lg shadow-violet-500/30 shrink-0 z-10 ring-4 ring-[var(--bg-secondary)]" />
+                <div className="hidden md:flex w-5 h-5 rounded-full bg-gradient-to-br from-violet-500 to-indigo-500 shadow-lg shadow-violet-500/30 shrink-0 z-10 ring-4" style={{ '--tw-ring-color': 'var(--bg-secondary)' }} />
 
                 {/* Spacer for timeline alignment */}
                 <div className="flex-1 hidden md:block" />
