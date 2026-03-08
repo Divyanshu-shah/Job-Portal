@@ -76,7 +76,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="hero-section relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section ref={sectionRef} className="hero-section relative min-h-[calc(100svh-4rem)] sm:min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background layers */}
       <div ref={bgRef} className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-violet-950/80 to-gray-950" />
@@ -93,21 +93,21 @@ const Hero = () => {
       ))}
 
       {/* Content */}
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-10 sm:py-20">
-        <div ref={badgeRef} className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/[0.07] backdrop-blur-md border border-white/10 text-violet-300 text-sm font-medium mb-8">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-16 pb-10 sm:py-20">
+        <div ref={badgeRef} className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full bg-white/[0.07] backdrop-blur-md border border-white/10 text-violet-300 text-xs sm:text-sm font-medium mb-6 sm:mb-8">
           <FaStar className="text-amber-400 text-xs" />
           <span>Trusted by 50,000+ students nationwide</span>
         </div>
 
-        <h1 ref={titleRef} className="text-3xl sm:text-5xl md:text-6xl lg:text-8xl font-extrabold text-white mb-4 leading-[1.05] tracking-tight" style={{ fontFamily: "'Outfit', sans-serif" }}>
+        <h1 ref={titleRef} className="text-[1.75rem] sm:text-5xl md:text-6xl lg:text-8xl font-extrabold text-white mb-3 sm:mb-4 leading-[1.1] tracking-tight" style={{ fontFamily: "'Outfit', sans-serif" }}>
           Find Your Dream Job
         </h1>
 
-        <h2 ref={subtitleRef} className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-violet-300 via-indigo-200 to-rose-300 bg-clip-text text-transparent" style={{ fontFamily: "'Outfit', sans-serif" }}>
+        <h2 ref={subtitleRef} className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-violet-300 via-indigo-200 to-rose-300 bg-clip-text text-transparent" style={{ fontFamily: "'Outfit', sans-serif" }}>
           Start Your Career Today
         </h2>
 
-        <p ref={descRef} className="text-base sm:text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-8 sm:mb-12 leading-relaxed">
+        <p ref={descRef} className="text-sm sm:text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-6 sm:mb-12 leading-relaxed px-2 sm:px-0">
           Connect with top employers, discover amazing opportunities, and take the next step in your professional journey.
         </p>
 
@@ -124,7 +124,7 @@ const Hero = () => {
           </div>
         </form>
 
-        <div ref={linksRef} className="mt-10 flex flex-wrap justify-center gap-6">
+        <div ref={linksRef} className="mt-6 sm:mt-10 flex flex-wrap justify-center gap-4 sm:gap-6">
           <Link to="/register" className="text-gray-500 hover:text-violet-300 transition-colors duration-300 flex items-center gap-2 text-sm">
             <FaUserTie /> For Students
           </Link>
@@ -136,7 +136,7 @@ const Hero = () => {
       </div>
 
       {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[var(--bg-tertiary)] to-transparent z-10 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-20 sm:h-32 bg-gradient-to-t from-[var(--bg-tertiary)] to-transparent z-10 pointer-events-none" />
     </section>
   );
 };

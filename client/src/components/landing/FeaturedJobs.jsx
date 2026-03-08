@@ -51,7 +51,7 @@ const FeaturedJobs = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-16 md:py-28" style={{ background: 'var(--bg-secondary)' }}>
+    <section ref={sectionRef} className="py-12 md:py-28" style={{ background: 'var(--bg-secondary)' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div ref={headingRef} className="text-center mb-16">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium mb-4" style={{ background: 'var(--glass-bg)', border: '1px solid var(--card-border)', color: 'var(--primary)' }}>
@@ -65,9 +65,9 @@ const FeaturedJobs = () => {
           </p>
         </div>
 
-        <div ref={gridRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div ref={gridRef} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {sampleJobs.map((job) => (
-            <motion.div key={job.id} variants={cardVariants} initial="rest" whileHover="hover" className="card p-6 cursor-pointer group">
+            <motion.div key={job.id} variants={cardVariants} initial="rest" whileHover="hover" className="card p-4 sm:p-6 cursor-pointer group">
               <div className="flex items-start gap-4 mb-4">
                 <div className={`w-12 h-12 bg-gradient-to-br ${job.gradient} rounded-xl flex items-center justify-center text-white text-lg font-bold shadow-lg shrink-0`}>
                   {job.company.charAt(0)}

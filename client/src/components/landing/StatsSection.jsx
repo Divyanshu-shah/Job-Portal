@@ -53,23 +53,23 @@ const StatsSection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-20 relative" style={{ background: 'var(--bg-secondary)' }}>
+    <section ref={sectionRef} className="py-12 sm:py-20 relative" style={{ background: 'var(--bg-secondary)' }}>
       {/* Top decorative border */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-500/30 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
           {stats.map((stat, i) => (
             <div key={i} ref={(el) => (cardsRef.current[i] = el)} className="stat-card text-center group relative overflow-hidden">
               {/* Hover glow */}
               <div className={`absolute inset-0 bg-gradient-to-br ${stat.gradient} opacity-0 group-hover:opacity-[0.04] transition-opacity duration-500`} />
-              <div className={`w-12 h-12 mx-auto bg-gradient-to-br ${stat.gradient} rounded-xl flex items-center justify-center text-white text-lg mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+              <div className={`w-10 h-10 sm:w-12 sm:h-12 mx-auto bg-gradient-to-br ${stat.gradient} rounded-xl flex items-center justify-center text-white text-base sm:text-lg mb-3 sm:mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                 {stat.icon}
               </div>
               <div ref={(el) => (countersRef.current[i] = el)} className="text-2xl sm:text-3xl md:text-4xl font-extrabold mb-1 tracking-tight" style={{ color: 'var(--text-primary)', fontFamily: "'Outfit', sans-serif" }}>
                 0
               </div>
-              <div className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>{stat.label}</div>
+              <div className="text-xs sm:text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>{stat.label}</div>
             </div>
           ))}
         </div>

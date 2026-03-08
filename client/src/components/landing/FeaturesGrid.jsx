@@ -48,7 +48,7 @@ const FeaturesGrid = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-16 md:py-28" style={{ background: 'var(--bg-tertiary)' }}>
+    <section ref={sectionRef} className="py-12 md:py-28" style={{ background: 'var(--bg-tertiary)' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div ref={headingRef} className="text-center mb-16">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium mb-4" style={{ background: 'var(--glass-bg)', border: '1px solid var(--card-border)', color: 'var(--primary)' }}>
@@ -62,7 +62,7 @@ const FeaturesGrid = () => {
           </p>
         </div>
 
-        <div ref={gridRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div ref={gridRef} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {features.map((feat, i) => (
             <motion.div key={i} variants={cardHover} initial="rest" whileHover="hover" className="card p-7 group hover:border-violet-500/30 cursor-default">
               <div className={`w-14 h-14 bg-gradient-to-br ${feat.gradient} rounded-2xl flex items-center justify-center text-white text-xl mb-5 shadow-lg group-hover:shadow-xl transition-shadow duration-300`}>

@@ -58,7 +58,7 @@ const CTASection = () => {
           Your Dream Job is <br className="hidden sm:block" />
           <span className="bg-gradient-to-r from-violet-300 via-indigo-200 to-rose-300 bg-clip-text text-transparent">Waiting</span>
         </h2>
-        <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-12 leading-relaxed">
+        <p className="text-base sm:text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-8 sm:mb-12 leading-relaxed">
           Join thousands of students and recruiters who have found their perfect match through JobPortal. Your next chapter starts here.
         </p>
 

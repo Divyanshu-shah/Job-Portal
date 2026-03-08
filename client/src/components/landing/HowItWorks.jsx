@@ -55,10 +55,10 @@ const HowItWorks = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-16 md:py-28 relative" style={{ background: 'var(--bg-secondary)' }}>
+    <section ref={sectionRef} className="py-12 md:py-28 relative" style={{ background: 'var(--bg-secondary)' }}>
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading */}
-        <div ref={headingRef} className="text-center mb-20">
+        <div ref={headingRef} className="text-center mb-12 sm:mb-20">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium mb-4" style={{ background: 'var(--glass-bg)', border: '1px solid var(--card-border)', color: 'var(--primary)' }}>
             How It Works
           </span>
@@ -77,7 +77,7 @@ const HowItWorks = () => {
             <div ref={lineRef} className="w-full h-full bg-gradient-to-b from-violet-500 via-violet-500 to-rose-500 origin-top" />
           </div>
 
-          <div className="space-y-10 md:space-y-24">
+          <div className="space-y-8 md:space-y-24">
             {steps.map((step, i) => (
               <div key={i} ref={(el) => (stepsRef.current[i] = el)} className={`flex flex-col md:flex-row items-center gap-8 ${i % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
                 {/* Step card */}
