@@ -1,9 +1,19 @@
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { jobsAPI } from '../services/api';
 import JobCard from '../components/JobCard';
 import AnimatedSection from '../components/AnimatedSection';
 import { FaSearch, FaFilter, FaTimes, FaBriefcase, FaMapMarkerAlt } from 'react-icons/fa';
+
+const containerVariants = {
+    hidden: { opacity: 0 },
+    show: { opacity: 1, transition: { staggerChildren: 0.08 } },
+};
+const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 300, damping: 24 } },
+};
 
 const Jobs = () => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -114,13 +124,21 @@ const Jobs = () => {
                     </AnimatedSection>
                 ) : (
                     <>
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                            {jobs.map((job, index) => (
-                                <AnimatedSection key={job._id} animation="fade-in-up" delay={index * 80}>
+                        <motion.div
+                            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8"
+                            variants={containerVariants}
+                            initial="hidden"
+                            animate="show"
+                            key={filters.page + filters.jobType + filters.experience + filters.search}
+                        >
+                            <AnimatePresence mode="popLayout">
+                            {jobs.map((job) => (
+                                <motion.div key={job._id} variants={itemVariants} layout>
                                     <JobCard job={job} />
-                                </AnimatedSection>
+                                </motion.div>
                             ))}
-                        </div>
+                            </AnimatePresence>
+                        </motion.div>
                         {totalPages > 1 && (
                             <AnimatedSection animation="fade-in" className="flex justify-center gap-3 items-center">
                                 <button onClick={() => setFilters({ ...filters, page: filters.page - 1 })} disabled={filters.page === 1} className="btn btn-secondary btn-ripple disabled:opacity-40 text-sm">Previous</button>

@@ -9,7 +9,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const stats = [
-  { value: 50000, suffix: '+', label: 'Students', icon: <FaUserTie />, gradient: 'from-emerald-500 to-teal-500' },
+  { value: 50000, suffix: '+', label: 'Students', icon: <FaUserTie />, gradient: 'from-violet-500 to-indigo-500' },
   { value: 10000, suffix: '+', label: 'Active Jobs', icon: <FaBriefcase />, gradient: 'from-amber-500 to-orange-500' },
   { value: 2000, suffix: '+', label: 'Companies', icon: <FaStar />, gradient: 'from-violet-500 to-indigo-500' },
   { value: 1000000, suffix: '+', label: 'Applications', icon: <FaChartLine />, gradient: 'from-rose-500 to-pink-500' },
@@ -55,7 +55,7 @@ const StatsSection = () => {
   return (
     <section ref={sectionRef} className="py-20 relative" style={{ background: 'var(--bg-secondary)' }}>
       {/* Top decorative border */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald-500/30 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-500/30 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">

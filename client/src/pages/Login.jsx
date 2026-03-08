@@ -31,7 +31,7 @@ const Login = () => {
             <div className="w-full max-w-md mx-4 fade-in-up">
                 <div className="text-center mb-8">
                     <Link to="/" className="inline-flex items-center gap-2.5 text-3xl font-bold group">
-                        <div className="w-11 h-11 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center text-white shadow-lg group-hover:shadow-emerald-500/30 transition-all duration-400">
+                        <div className="w-11 h-11 bg-gradient-to-br from-violet-500 to-indigo-600 rounded-xl flex items-center justify-center text-white shadow-lg group-hover:shadow-violet-500/30 transition-all duration-400">
                             <FaBriefcase className="text-xl" />
                         </div>
                         <span className="gradient-text font-extrabold tracking-tight">JobPortal</span>
@@ -62,7 +62,7 @@ const Login = () => {
                     </form>
                     <div className="mt-8 text-center text-sm" style={{ color: 'var(--text-secondary)' }}>
                         Don&apos;t have an account?{' '}
-                        <Link to="/register" className="text-emerald-600 dark:text-emerald-400 font-bold hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors">Create Account</Link>
+                        <Link to="/register" className="text-violet-600 dark:text-violet-400 font-bold hover:text-violet-700 dark:hover:text-violet-300 transition-colors">Create Account</Link>
                     </div>
                 </div>
             </div>

@@ -29,8 +29,8 @@ const ParallaxDivider = ({ children, className = '' }) => {
   return (
     <section ref={sectionRef} className={`relative overflow-hidden ${className}`} style={{ minHeight: '40vh' }}>
       <div ref={bgRef} className="absolute inset-0 -top-[20%] -bottom-[20%]">
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-emerald-950/60 to-gray-950" />
-        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle at 30% 50%, rgba(5,150,105,0.4), transparent 60%), radial-gradient(circle at 70% 50%, rgba(99,102,241,0.3), transparent 60%)' }} />
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-violet-950/60 to-gray-950" />
+        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle at 30% 50%, rgba(124,58,237,0.4), transparent 60%), radial-gradient(circle at 70% 50%, rgba(99,102,241,0.3), transparent 60%)' }} />
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
       </div>
       <div className="relative z-10 flex items-center justify-center min-h-[40vh] px-4">

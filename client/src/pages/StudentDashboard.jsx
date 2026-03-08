@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { applicationsAPI } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import AnimatedSection from '../components/AnimatedSection';
@@ -58,7 +59,7 @@ const StudentDashboard = () => {
             'Applied': <FaClock className="text-blue-500" />,
             'Reviewed': <FaEye className="text-amber-500" />,
             'Shortlisted': <FaFileAlt className="text-purple-500" />,
-            'Accepted': <FaCheckCircle className="text-emerald-500" />,
+            'Accepted': <FaCheckCircle className="text-violet-500" />,
             'Rejected': <FaTimesCircle className="text-red-500" />
         };
         return icons[status] || <FaClock className="text-blue-500" />;
@@ -66,7 +67,7 @@ const StudentDashboard = () => {
 
     const getGradient = (char) => {
         const gradients = [
-            'from-emerald-500 to-teal-600',
+            'from-violet-500 to-indigo-600',
             'from-amber-500 to-orange-600',
             'from-sky-500 to-blue-600',
             'from-rose-500 to-pink-600',
@@ -78,10 +79,10 @@ const StudentDashboard = () => {
     };
 
     const statItems = [
-        { value: stats.total, label: 'Total Applications', color: '', icon: <FaBriefcase className="text-3xl text-emerald-300" /> },
+        { value: stats.total, label: 'Total Applications', color: '', icon: <FaBriefcase className="text-3xl text-violet-300" /> },
         { value: stats.applied, label: 'Applied', color: 'text-blue-500', icon: <FaClock className="text-3xl text-blue-300" /> },
         { value: stats.reviewed, label: 'In Review', color: 'text-amber-500', icon: <FaEye className="text-3xl text-amber-300" /> },
-        { value: stats.accepted, label: 'Accepted', color: 'text-emerald-500', icon: <FaCheckCircle className="text-3xl text-emerald-300" /> },
+        { value: stats.accepted, label: 'Accepted', color: 'text-violet-500', icon: <FaCheckCircle className="text-3xl text-violet-300" /> },
         { value: stats.rejected, label: 'Rejected', color: 'text-red-500', icon: <FaTimesCircle className="text-3xl text-red-300" /> },
     ];
 
@@ -143,10 +144,14 @@ const StudentDashboard = () => {
                         ) : (
                             <div>
                                 {applications.map((application, index) => (
-                                    <div
+                                    <motion.div
                                         key={application._id}
-                                        className="p-6 transition-all duration-300 hover:bg-emerald-50/30 dark:hover:bg-emerald-900/10"
+                                        className="p-6 transition-all duration-300 hover:bg-violet-50/30 dark:hover:bg-violet-900/10"
                                         style={{ borderBottom: index < applications.length - 1 ? '1px solid var(--border-color)' : 'none' }}
+                                        initial={{ opacity: 0, x: -20 }}
+                                        whileInView={{ opacity: 1, x: 0 }}
+                                        viewport={{ once: true, margin: '-50px' }}
+                                        transition={{ delay: index * 0.05, type: 'spring', stiffness: 300, damping: 24 }}
                                     >
                                         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                                             <div className="flex items-start gap-4">
@@ -155,7 +160,7 @@ const StudentDashboard = () => {
                                                 </div>
                                                 <div>
                                                     <h3 className="font-bold" style={{ color: 'var(--text-primary)' }}>
-                                                        <Link to={`/jobs/${application.job?._id}`} className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
+                                                        <Link to={`/jobs/${application.job?._id}`} className="hover:text-violet-600 dark:hover:text-violet-400 transition-colors">
                                                             {application.job?.title}
                                                         </Link>
                                                     </h3>
@@ -167,12 +172,21 @@ const StudentDashboard = () => {
                                             </div>
                                             <div className="flex items-center gap-3">
                                                 {getStatusIcon(application.status)}
-                                                <span className={`badge ${getStatusBadge(application.status)}`}>
+                                                <AnimatePresence mode="wait">
+                                                    <motion.span
+                                                        key={application.status}
+                                                        className={`badge ${getStatusBadge(application.status)}`}
+                                                        initial={{ scale: 0.8, opacity: 0 }}
+                                                        animate={{ scale: 1, opacity: 1 }}
+                                                        exit={{ scale: 0.8, opacity: 0 }}
+                                                        transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+                                                    >
                                                     {application.status}
-                                                </span>
+                                                    </motion.span>
+                                                </AnimatePresence>
                                             </div>
                                         </div>
-                                    </div>
+                                    </motion.div>
                                 ))}
                             </div>
                         )}

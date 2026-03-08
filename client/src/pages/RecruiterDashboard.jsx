@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { jobsAPI, applicationsAPI } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import AnimatedSection from '../components/AnimatedSection';
@@ -85,7 +86,7 @@ const RecruiterDashboard = () => {
             'Applied': <FaClock className="text-blue-500 text-sm" />,
             'Reviewed': <FaEye className="text-amber-500 text-sm" />,
             'Shortlisted': <FaFileAlt className="text-purple-500 text-sm" />,
-            'Accepted': <FaCheckCircle className="text-emerald-500 text-sm" />,
+            'Accepted': <FaCheckCircle className="text-violet-500 text-sm" />,
             'Rejected': <FaTimesCircle className="text-red-500 text-sm" />
         };
         return icons[status] || <FaClock className="text-blue-500 text-sm" />;
@@ -111,7 +112,7 @@ const RecruiterDashboard = () => {
     const totalApplications = jobs.reduce((sum, job) => sum + (job.applicationCount || 0), 0);
 
     const statItems = [
-        { value: jobs.length, label: 'Total Jobs', icon: <FaBriefcase className="text-3xl text-emerald-300" /> },
+        { value: jobs.length, label: 'Total Jobs', icon: <FaBriefcase className="text-3xl text-violet-300" /> },
         { value: totalApplications, label: 'Applications', icon: <FaUsers className="text-3xl text-cyan-300" /> },
     ];
 
@@ -175,7 +176,7 @@ const RecruiterDashboard = () => {
                                 {jobs.map((job, index) => (
                                     <div
                                         key={job._id}
-                                        className={`p-6 transition-all duration-300 hover:bg-emerald-50/30 dark:hover:bg-emerald-900/10 ${selectedJob === job._id ? 'bg-emerald-50/40 dark:bg-emerald-900/15' : ''}`}
+                                        className={`p-6 transition-all duration-300 hover:bg-violet-50/30 dark:hover:bg-violet-900/10 ${selectedJob === job._id ? 'bg-violet-50/40 dark:bg-violet-900/15' : ''}`}
                                         style={{ borderBottom: index < jobs.length - 1 ? '1px solid var(--border-color)' : 'none' }}
                                     >
                                         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -214,7 +215,14 @@ const RecruiterDashboard = () => {
                 {/* Applications Modal */}
                 {selectedJob && (
                     <div className="fixed inset-0 flex items-center justify-center z-50 p-4" style={{ backgroundColor: 'var(--modal-overlay)' }}>
-                        <div className="card max-w-3xl w-full max-h-[85vh] overflow-y-auto fade-in-up" style={{ background: 'var(--bg-secondary)' }}>
+                        <motion.div
+                            className="card max-w-3xl w-full max-h-[85vh] overflow-y-auto"
+                            style={{ background: 'var(--bg-secondary)' }}
+                            initial={{ opacity: 0, scale: 0.9, y: 30 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.9, y: 30 }}
+                            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+                        >
                             <div className="sticky top-0 p-6 flex items-center justify-between" style={{ background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border-color)', zIndex: 10 }}>
                                 <h2 className="text-xl font-bold" style={{ color: 'var(--text-primary)', fontFamily: "'Outfit', sans-serif" }}>
                                     Applications ({applications.length})
@@ -243,7 +251,7 @@ const RecruiterDashboard = () => {
                                             style={{ background: 'var(--card-bg)', borderColor: 'var(--card-border)' }}>
                                             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                                                 <div className="flex items-start gap-3">
-                                                    <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
+                                                    <div className="w-10 h-10 bg-gradient-to-br from-violet-500 to-indigo-600 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
                                                         {app.student?.name?.charAt(0)}
                                                     </div>
                                                     <div>
@@ -257,9 +265,18 @@ const RecruiterDashboard = () => {
                                                 <div className="flex items-center gap-3">
                                                     <div className="flex items-center gap-1.5">
                                                         {getStatusIcon(app.status)}
-                                                        <span className={`badge ${getStatusBadge(app.status)}`}>
-                                                            {app.status}
-                                                        </span>
+                                                        <AnimatePresence mode="wait">
+                                                            <motion.span
+                                                                key={app.status}
+                                                                className={`badge ${getStatusBadge(app.status)}`}
+                                                                initial={{ scale: 0.8, opacity: 0 }}
+                                                                animate={{ scale: 1, opacity: 1 }}
+                                                                exit={{ scale: 0.8, opacity: 0 }}
+                                                                transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+                                                            >
+                                                                {app.status}
+                                                            </motion.span>
+                                                        </AnimatePresence>
                                                     </div>
                                                     <select
                                                         value={app.status}
@@ -284,7 +301,7 @@ const RecruiterDashboard = () => {
                                     ))}
                                 </div>
                             )}
-                        </div>
+                        </motion.div>
                     </div>
                 )}
             </div>

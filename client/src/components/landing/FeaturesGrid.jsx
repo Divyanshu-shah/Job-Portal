@@ -11,7 +11,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const features = [
-  { icon: <FaBriefcase />, title: 'Find Dream Jobs', description: 'Browse thousands of job listings from top companies and find the perfect match for your skills.', gradient: 'from-emerald-500 to-teal-500' },
+  { icon: <FaBriefcase />, title: 'Find Dream Jobs', description: 'Browse thousands of job listings from top companies and find the perfect match for your skills.', gradient: 'from-violet-500 to-indigo-500' },
   { icon: <FaUserTie />, title: 'Connect with Recruiters', description: 'Direct access to hiring managers and recruiters looking for talented individuals like you.', gradient: 'from-amber-500 to-orange-500' },
   { icon: <FaRocket />, title: 'Quick Applications', description: 'Apply to multiple jobs with just a few clicks. Upload your resume once and use it everywhere.', gradient: 'from-sky-500 to-blue-500' },
   { icon: <FaChartLine />, title: 'Track Progress', description: 'Monitor your application status in real-time. Never miss an update on your job applications.', gradient: 'from-rose-500 to-pink-500' },
@@ -64,7 +64,7 @@ const FeaturesGrid = () => {
 
         <div ref={gridRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feat, i) => (
-            <motion.div key={i} variants={cardHover} initial="rest" whileHover="hover" className="card p-7 group hover:border-emerald-500/30 cursor-default">
+            <motion.div key={i} variants={cardHover} initial="rest" whileHover="hover" className="card p-7 group hover:border-violet-500/30 cursor-default">
               <div className={`w-14 h-14 bg-gradient-to-br ${feat.gradient} rounded-2xl flex items-center justify-center text-white text-xl mb-5 shadow-lg group-hover:shadow-xl transition-shadow duration-300`}>
                 {feat.icon}
               </div>

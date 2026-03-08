@@ -77,10 +77,10 @@ const AdminDashboard = () => {
     };
 
     const statItems = [
-        { value: stats.totalUsers, label: 'Total Users', icon: <FaUsers className="text-3xl text-emerald-300" />, gradient: 'from-emerald-500 to-teal-600' },
+        { value: stats.totalUsers, label: 'Total Users', icon: <FaUsers className="text-3xl text-violet-300" />, gradient: 'from-violet-500 to-indigo-600' },
         { value: stats.totalStudents, label: 'Students', icon: <FaUserGraduate className="text-3xl text-cyan-300" />, gradient: 'from-cyan-500 to-blue-600' },
         { value: stats.totalRecruiters, label: 'Recruiters', icon: <FaUserTie className="text-3xl text-amber-300" />, gradient: 'from-amber-500 to-orange-600' },
-        { value: stats.totalJobs, label: 'Total Jobs', icon: <FaBriefcase className="text-3xl text-emerald-300" />, gradient: 'from-emerald-500 to-teal-600' },
+        { value: stats.totalJobs, label: 'Total Jobs', icon: <FaBriefcase className="text-3xl text-violet-300" />, gradient: 'from-violet-500 to-indigo-600' },
     ];
 
     if (loading) {
@@ -127,7 +127,7 @@ const AdminDashboard = () => {
                     <button
                         onClick={() => setActiveTab('pending')}
                         className={`px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 btn-ripple ${activeTab === 'pending'
-                            ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-lg shadow-emerald-500/25'
+                            ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-lg shadow-violet-500/25'
                             : ''
                             }`}
                         style={activeTab !== 'pending' ? { background: 'var(--card-bg)', color: 'var(--text-secondary)', border: '1px solid var(--card-border)' } : {}}
@@ -142,7 +142,7 @@ const AdminDashboard = () => {
                     <button
                         onClick={() => setActiveTab('users')}
                         className={`px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 btn-ripple ${activeTab === 'users'
-                            ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-lg shadow-emerald-500/25'
+                            ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-lg shadow-violet-500/25'
                             : ''
                             }`}
                         style={activeTab !== 'users' ? { background: 'var(--card-bg)', color: 'var(--text-secondary)', border: '1px solid var(--card-border)' } : {}}
@@ -163,7 +163,7 @@ const AdminDashboard = () => {
                         {pendingRecruiters.length === 0 ? (
                             <div className="text-center py-16">
                                 <div className="w-20 h-20 mx-auto mb-5 rounded-2xl flex items-center justify-center" style={{ background: 'var(--bg-tertiary)' }}>
-                                    <FaCheckCircle className="text-3xl text-emerald-500" />
+                                    <FaCheckCircle className="text-3xl text-violet-500" />
                                 </div>
                                 <h3 className="text-lg font-bold mb-2" style={{ color: 'var(--text-primary)' }}>All Clear!</h3>
                                 <p style={{ color: 'var(--text-secondary)' }}>No pending recruiter approvals.</p>
@@ -173,7 +173,7 @@ const AdminDashboard = () => {
                                 {pendingRecruiters.map((recruiter, index) => (
                                     <div
                                         key={recruiter._id}
-                                        className="p-6 transition-all duration-300 hover:bg-emerald-50/30 dark:hover:bg-emerald-900/10"
+                                        className="p-6 transition-all duration-300 hover:bg-violet-50/30 dark:hover:bg-violet-900/10"
                                         style={{ borderBottom: index < pendingRecruiters.length - 1 ? '1px solid var(--border-color)' : 'none' }}
                                     >
                                         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -229,12 +229,12 @@ const AdminDashboard = () => {
                                 {allUsers.map((u, index) => (
                                     <tr
                                         key={u._id}
-                                        className="transition-all duration-300 hover:bg-emerald-50/30 dark:hover:bg-emerald-900/10"
+                                        className="transition-all duration-300 hover:bg-violet-50/30 dark:hover:bg-violet-900/10"
                                         style={{ borderBottom: index < allUsers.length - 1 ? '1px solid var(--border-color)' : 'none' }}
                                     >
                                         <td className="px-6 py-4">
                                             <div className="flex items-center gap-3">
-                                                <div className="w-9 h-9 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-full flex items-center justify-center text-white text-sm font-bold">
+                                                <div className="w-9 h-9 bg-gradient-to-br from-violet-500 to-indigo-600 rounded-full flex items-center justify-center text-white text-sm font-bold">
                                                     {u.name?.charAt(0)}
                                                 </div>
                                                 <div>

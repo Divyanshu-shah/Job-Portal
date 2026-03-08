@@ -32,7 +32,7 @@ const Register = () => {
             <div className="w-full max-w-md mx-4 fade-in-up">
                 <div className="text-center mb-8">
                     <Link to="/" className="inline-flex items-center gap-2.5 text-3xl font-bold group">
-                        <div className="w-11 h-11 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center text-white shadow-lg group-hover:shadow-emerald-500/30 transition-all duration-400">
+                        <div className="w-11 h-11 bg-gradient-to-br from-violet-500 to-indigo-600 rounded-xl flex items-center justify-center text-white shadow-lg group-hover:shadow-violet-500/30 transition-all duration-400">
                             <FaBriefcase className="text-xl" />
                         </div>
                         <span className="gradient-text font-extrabold tracking-tight">JobPortal</span>
@@ -47,12 +47,12 @@ const Register = () => {
                             <label className="block text-sm font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>I am a...</label>
                             <div className="grid grid-cols-2 gap-4">
                                 <button type="button" onClick={() => setFormData({ ...formData, role: 'student' })}
-                                    className={`p-4 border-2 rounded-xl flex flex-col items-center gap-2.5 transition-all duration-300 ${formData.role === 'student' ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 shadow-md shadow-emerald-500/10' : 'hover:border-gray-300 dark:hover:border-gray-500'}`}
+                                    className={`p-4 border-2 rounded-xl flex flex-col items-center gap-2.5 transition-all duration-300 ${formData.role === 'student' ? 'border-violet-500 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 shadow-md shadow-violet-500/10' : 'hover:border-gray-300 dark:hover:border-gray-500'}`}
                                     style={formData.role !== 'student' ? { borderColor: 'var(--input-border)', color: 'var(--text-secondary)' } : {}}>
                                     <FaUser className="text-2xl" /><span className="font-bold text-sm">Student</span>
                                 </button>
                                 <button type="button" onClick={() => setFormData({ ...formData, role: 'recruiter' })}
-                                    className={`p-4 border-2 rounded-xl flex flex-col items-center gap-2.5 transition-all duration-300 ${formData.role === 'recruiter' ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 shadow-md shadow-emerald-500/10' : 'hover:border-gray-300 dark:hover:border-gray-500'}`}
+                                    className={`p-4 border-2 rounded-xl flex flex-col items-center gap-2.5 transition-all duration-300 ${formData.role === 'recruiter' ? 'border-violet-500 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 shadow-md shadow-violet-500/10' : 'hover:border-gray-300 dark:hover:border-gray-500'}`}
                                     style={formData.role !== 'recruiter' ? { borderColor: 'var(--input-border)', color: 'var(--text-secondary)' } : {}}>
                                     <FaBuilding className="text-2xl" /><span className="font-bold text-sm">Recruiter</span>
                                 </button>
@@ -101,7 +101,7 @@ const Register = () => {
                     </form>
                     <div className="mt-8 text-center text-sm" style={{ color: 'var(--text-secondary)' }}>
                         Already have an account?{' '}
-                        <Link to="/login" className="text-emerald-600 dark:text-emerald-400 font-bold hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors">Sign In</Link>
+                        <Link to="/login" className="text-violet-600 dark:text-violet-400 font-bold hover:text-violet-700 dark:hover:text-violet-300 transition-colors">Sign In</Link>
                     </div>
                 </div>
             </div>

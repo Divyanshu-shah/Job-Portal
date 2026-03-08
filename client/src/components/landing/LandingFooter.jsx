@@ -50,14 +50,14 @@ const LandingFooter = () => {
 
   return (
     <footer ref={footerRef} className="relative overflow-hidden" style={{ background: 'linear-gradient(180deg, #111827 0%, #030712 100%)' }}>
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald-500/40 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-500/40 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-8">
         <div ref={contentRef} className="grid md:grid-cols-2 lg:grid-cols-5 gap-10 mb-16">
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link to="/" className="flex items-center gap-2.5 text-2xl font-bold text-white mb-5 group">
-              <div className="w-9 h-9 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-emerald-500/30 transition-all duration-400">
+              <div className="w-9 h-9 bg-gradient-to-br from-violet-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-violet-500/30 transition-all duration-400">
                 <FaBriefcase className="text-white text-lg" />
               </div>
               <span className="font-extrabold tracking-tight">JobPortal</span>
@@ -73,9 +73,9 @@ const LandingFooter = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
-                className="flex-1 px-4 py-2.5 rounded-xl bg-white/[0.06] border border-white/10 text-white placeholder-gray-500 text-sm outline-none focus:border-emerald-500 transition-colors"
+                className="flex-1 px-4 py-2.5 rounded-xl bg-white/[0.06] border border-white/10 text-white placeholder-gray-500 text-sm outline-none focus:border-violet-500 transition-colors"
               />
-              <button type="submit" className="px-4 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl text-white text-sm font-medium hover:shadow-lg hover:shadow-emerald-500/25 transition-all duration-300 flex items-center gap-1.5">
+              <button type="submit" className="px-4 py-2.5 bg-gradient-to-r from-violet-500 to-indigo-600 rounded-xl text-white text-sm font-medium hover:shadow-lg hover:shadow-violet-500/25 transition-all duration-300 flex items-center gap-1.5">
                 <FaPaperPlane className="text-xs" /> {subscribed ? 'Subscribed!' : 'Subscribe'}
               </button>
             </form>
@@ -85,9 +85,9 @@ const LandingFooter = () => {
           <div>
             <h3 className="text-white font-bold mb-5 text-sm uppercase tracking-wider">For Students</h3>
             <ul className="space-y-3 text-sm">
-              <li><Link to="/jobs" className="text-gray-400 hover:text-emerald-400 transition-colors duration-300">Browse Jobs</Link></li>
-              <li><Link to="/register" className="text-gray-400 hover:text-emerald-400 transition-colors duration-300">Create Account</Link></li>
-              <li><Link to="/login" className="text-gray-400 hover:text-emerald-400 transition-colors duration-300">Student Login</Link></li>
+              <li><Link to="/jobs" className="text-gray-400 hover:text-violet-400 transition-colors duration-300">Browse Jobs</Link></li>
+              <li><Link to="/register" className="text-gray-400 hover:text-violet-400 transition-colors duration-300">Create Account</Link></li>
+              <li><Link to="/login" className="text-gray-400 hover:text-violet-400 transition-colors duration-300">Student Login</Link></li>
             </ul>
           </div>
 
@@ -95,8 +95,8 @@ const LandingFooter = () => {
           <div>
             <h3 className="text-white font-bold mb-5 text-sm uppercase tracking-wider">For Recruiters</h3>
             <ul className="space-y-3 text-sm">
-              <li><Link to="/register" className="text-gray-400 hover:text-emerald-400 transition-colors duration-300">Post a Job</Link></li>
-              <li><Link to="/login" className="text-gray-400 hover:text-emerald-400 transition-colors duration-300">Recruiter Login</Link></li>
+              <li><Link to="/register" className="text-gray-400 hover:text-violet-400 transition-colors duration-300">Post a Job</Link></li>
+              <li><Link to="/login" className="text-gray-400 hover:text-violet-400 transition-colors duration-300">Recruiter Login</Link></li>
             </ul>
           </div>
 
@@ -105,7 +105,7 @@ const LandingFooter = () => {
             <h3 className="text-white font-bold mb-5 text-sm uppercase tracking-wider">Connect</h3>
             <div className="flex flex-wrap gap-3">
               {socialLinks.map(({ Icon, label }, i) => (
-                <a key={i} href="#" aria-label={label} className="w-10 h-10 rounded-xl flex items-center justify-center text-gray-400 border border-gray-800 hover:border-emerald-500 hover:bg-emerald-600 hover:text-white transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/20">
+                <a key={i} href="#" aria-label={label} className="w-10 h-10 rounded-xl flex items-center justify-center text-gray-400 border border-gray-800 hover:border-violet-500 hover:bg-violet-600 hover:text-white transition-all duration-300 hover:shadow-lg hover:shadow-violet-500/20">
                   <Icon />
                 </a>
               ))}
@@ -118,7 +118,7 @@ const LandingFooter = () => {
           <p className="text-sm text-gray-500">© {new Date().getFullYear()} JobPortal. All rights reserved.</p>
           <div className="flex items-center gap-4">
             <p className="text-sm text-gray-500 flex items-center gap-1.5">Made with <FaHeart className="text-red-400 text-xs" /> for students</p>
-            <button onClick={scrollToTop} className="w-9 h-9 rounded-xl border border-gray-800 flex items-center justify-center text-gray-400 hover:border-emerald-500 hover:bg-emerald-600 hover:text-white transition-all duration-300" aria-label="Scroll to top">
+            <button onClick={scrollToTop} className="w-9 h-9 rounded-xl border border-gray-800 flex items-center justify-center text-gray-400 hover:border-violet-500 hover:bg-violet-600 hover:text-white transition-all duration-300" aria-label="Scroll to top">
               <FaArrowUp className="text-sm" />
             </button>
           </div>

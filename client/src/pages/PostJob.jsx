@@ -276,7 +276,7 @@ const PostJob = () => {
                                 <button
                                     type="button"
                                     onClick={() => addArrayItem('requirements')}
-                                    className="flex items-center gap-2 text-sm text-emerald-600 dark:text-emerald-400 font-bold hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors"
+                                    className="flex items-center gap-2 text-sm text-violet-600 dark:text-violet-400 font-bold hover:text-violet-700 dark:hover:text-violet-300 transition-colors"
                                 >
                                     <FaPlus className="text-xs" /> Add Requirement
                                 </button>
@@ -315,7 +315,7 @@ const PostJob = () => {
                                 <button
                                     type="button"
                                     onClick={() => addArrayItem('skills')}
-                                    className="flex items-center gap-2 text-sm text-emerald-600 dark:text-emerald-400 font-bold hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors"
+                                    className="flex items-center gap-2 text-sm text-violet-600 dark:text-violet-400 font-bold hover:text-violet-700 dark:hover:text-violet-300 transition-colors"
                                 >
                                     <FaPlus className="text-xs" /> Add Skill
                                 </button>

@@ -12,7 +12,7 @@ gsap.registerPlugin(ScrollTrigger);
 const LottiePlayer = lazy(() => import('lottie-react'));
 
 const steps = [
-  { icon: <FaCloudUploadAlt />, title: 'Upload Resume', description: 'Upload your resume in seconds. Our platform supports all major formats.', gradient: 'from-emerald-500 to-teal-500', lottie: null },
+  { icon: <FaCloudUploadAlt />, title: 'Upload Resume', description: 'Upload your resume in seconds. Our platform supports all major formats.', gradient: 'from-violet-500 to-indigo-500', lottie: null },
   { icon: <FaSearch />, title: 'Browse Opportunities', description: 'Search and filter thousands of jobs by role, location, salary, and experience level.', gradient: 'from-violet-500 to-indigo-500', lottie: null },
   { icon: <FaBullseye />, title: 'Get Job Matches', description: 'Receive personalized job recommendations that match your unique profile.', gradient: 'from-amber-500 to-orange-500', lottie: null },
   { icon: <FaPaperPlane />, title: 'Apply Instantly', description: 'Apply with one click. Your profile is auto-filled for faster applications.', gradient: 'from-rose-500 to-pink-500', lottie: null },
@@ -73,8 +73,8 @@ const HowItWorks = () => {
         {/* Steps timeline */}
         <div className="relative">
           {/* Vertical connecting line */}
-          <div className="absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 bg-gradient-to-b from-emerald-500/20 via-violet-500/20 to-rose-500/20 hidden md:block">
-            <div ref={lineRef} className="w-full h-full bg-gradient-to-b from-emerald-500 via-violet-500 to-rose-500 origin-top" />
+          <div className="absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 bg-gradient-to-b from-violet-500/20 via-violet-500/20 to-rose-500/20 hidden md:block">
+            <div ref={lineRef} className="w-full h-full bg-gradient-to-b from-violet-500 via-violet-500 to-rose-500 origin-top" />
           </div>
 
           <div className="space-y-16 md:space-y-24">
@@ -82,7 +82,7 @@ const HowItWorks = () => {
               <div key={i} ref={(el) => (stepsRef.current[i] = el)} className={`flex flex-col md:flex-row items-center gap-8 ${i % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
                 {/* Step card */}
                 <div className="flex-1 w-full">
-                  <div className="card p-8 relative overflow-hidden group hover:border-emerald-500/30 transition-all duration-500">
+                  <div className="card p-8 relative overflow-hidden group hover:border-violet-500/30 transition-all duration-500">
                     {/* Step number */}
                     <div className="absolute top-4 right-4 text-6xl font-extrabold opacity-[0.04]" style={{ color: 'var(--text-primary)', fontFamily: "'Outfit', sans-serif" }}>
                       0{i + 1}
@@ -96,7 +96,7 @@ const HowItWorks = () => {
                 </div>
 
                 {/* Center dot */}
-                <div className="hidden md:flex w-5 h-5 rounded-full bg-gradient-to-br from-emerald-500 to-teal-500 shadow-lg shadow-emerald-500/30 shrink-0 z-10 ring-4 ring-[var(--bg-secondary)]" />
+                <div className="hidden md:flex w-5 h-5 rounded-full bg-gradient-to-br from-violet-500 to-indigo-500 shadow-lg shadow-violet-500/30 shrink-0 z-10 ring-4 ring-[var(--bg-secondary)]" />
 
                 {/* Spacer for timeline alignment */}
                 <div className="flex-1 hidden md:block" />

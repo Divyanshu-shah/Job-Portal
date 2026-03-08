@@ -79,8 +79,8 @@ const Hero = () => {
     <section ref={sectionRef} className="hero-section relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background layers */}
       <div ref={bgRef} className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-emerald-950/80 to-gray-950" />
-        <div className="absolute inset-0 opacity-30" style={{ backgroundImage: 'radial-gradient(circle at 20% 40%, rgba(5,150,105,0.4) 0%, transparent 50%), radial-gradient(circle at 80% 60%, rgba(99,102,241,0.25) 0%, transparent 50%), radial-gradient(circle at 50% 20%, rgba(217,119,6,0.2) 0%, transparent 40%)' }} />
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-violet-950/80 to-gray-950" />
+        <div className="absolute inset-0 opacity-30" style={{ backgroundImage: 'radial-gradient(circle at 20% 40%, rgba(124,58,237,0.4) 0%, transparent 50%), radial-gradient(circle at 80% 60%, rgba(99,102,241,0.25) 0%, transparent 50%), radial-gradient(circle at 50% 20%, rgba(225,29,72,0.2) 0%, transparent 40%)' }} />
         {/* Grid pattern overlay */}
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
       </div>
@@ -94,7 +94,7 @@ const Hero = () => {
 
       {/* Content */}
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20">
-        <div ref={badgeRef} className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/[0.07] backdrop-blur-md border border-white/10 text-emerald-300 text-sm font-medium mb-8">
+        <div ref={badgeRef} className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/[0.07] backdrop-blur-md border border-white/10 text-violet-300 text-sm font-medium mb-8">
           <FaStar className="text-amber-400 text-xs" />
           <span>Trusted by 50,000+ students nationwide</span>
         </div>
@@ -103,7 +103,7 @@ const Hero = () => {
           Find Your Dream Job
         </h1>
 
-        <h2 ref={subtitleRef} className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-emerald-300 via-teal-200 to-amber-300 bg-clip-text text-transparent" style={{ fontFamily: "'Outfit', sans-serif" }}>
+        <h2 ref={subtitleRef} className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-violet-300 via-indigo-200 to-rose-300 bg-clip-text text-transparent" style={{ fontFamily: "'Outfit', sans-serif" }}>
           Start Your Career Today
         </h2>
 
@@ -125,11 +125,11 @@ const Hero = () => {
         </form>
 
         <div ref={linksRef} className="mt-10 flex flex-wrap justify-center gap-6">
-          <Link to="/register" className="text-gray-500 hover:text-emerald-300 transition-colors duration-300 flex items-center gap-2 text-sm">
+          <Link to="/register" className="text-gray-500 hover:text-violet-300 transition-colors duration-300 flex items-center gap-2 text-sm">
             <FaUserTie /> For Students
           </Link>
           <span className="text-gray-700">|</span>
-          <Link to="/register" className="text-gray-500 hover:text-emerald-300 transition-colors duration-300 flex items-center gap-2 text-sm">
+          <Link to="/register" className="text-gray-500 hover:text-violet-300 transition-colors duration-300 flex items-center gap-2 text-sm">
             <FaBriefcase /> For Recruiters
           </Link>
         </div>
