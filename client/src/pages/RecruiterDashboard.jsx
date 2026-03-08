@@ -45,7 +45,7 @@ const RecruiterDashboard = () => {
 
     const updateApplicationStatus = async (applicationId, status) => {
         try {
-            await applicationsAPI.updateStatus(applicationId, status);
+            await applicationsAPI.updateStatus(applicationId, { status });
             setApplications(applications.map(app =>
                 app._id === applicationId ? { ...app, status } : app
             ));
