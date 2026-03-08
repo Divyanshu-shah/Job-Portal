@@ -6,7 +6,6 @@ import Hero from '../components/landing/Hero';
 import StatsSection from '../components/landing/StatsSection';
 import FeaturesGrid from '../components/landing/FeaturesGrid';
 import HowItWorks from '../components/landing/HowItWorks';
-import AISection from '../components/landing/AISection';
 import FeaturedJobs from '../components/landing/FeaturedJobs';
 import ParallaxDivider from '../components/landing/ParallaxDivider';
 import CTASection from '../components/landing/CTASection';
@@ -19,7 +18,6 @@ const Home = () => {
             <StatsSection />
             <HowItWorks />
             <FeaturesGrid />
-            <AISection />
             <ParallaxDivider>
                 <div className="text-center">
                     <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-4 tracking-tight" style={{ fontFamily: "'Outfit', sans-serif" }}>
