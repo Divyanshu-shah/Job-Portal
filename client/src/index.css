@@ -867,6 +867,62 @@ body {
   animation-delay: 0.4s;
 }
 
+/* ===== LANDING PAGE — PREMIUM SaaS STYLES ===== */
+
+/* Landing page resets — no default page padding */
+.landing-page {
+  padding-top: 0;
+  padding-bottom: 0;
+  min-height: auto;
+}
+
+/* Hero search bar — glassmorphism */
+.hero-search-bar {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Hero CTA button */
+.hero-cta-btn {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  box-shadow: 0 4px 20px rgba(5, 150, 105, 0.4);
+}
+.hero-cta-btn:hover {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  box-shadow: 0 6px 30px rgba(5, 150, 105, 0.55);
+  transform: translateY(-1px);
+}
+
+/* Lenis smooth scroll overrides */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* GSAP animation base — prevent FOUC */
+[data-gsap] {
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-section,
+  [data-gsap] {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
 .stagger-children>*:nth-child(9) {
   animation-delay: 0.45s;
 }
