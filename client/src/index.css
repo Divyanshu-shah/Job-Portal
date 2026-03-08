@@ -74,6 +74,7 @@ body {
   transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 /* ---------- Gradient Text ---------- */
@@ -322,7 +323,7 @@ body {
   box-shadow: var(--card-shadow);
   backdrop-filter: blur(12px) saturate(1.6);
   -webkit-backdrop-filter: blur(12px) saturate(1.6);
-  @apply p-6 rounded-2xl transition-all duration-400;
+  @apply p-4 sm:p-6 rounded-2xl transition-all duration-400;
   position: relative;
   overflow: hidden;
 }
@@ -351,7 +352,7 @@ body {
 .stat-card-value {
   color: var(--text-primary);
   font-family: 'Outfit', 'Inter', sans-serif;
-  @apply text-3xl font-extrabold tracking-tight;
+  @apply text-xl sm:text-3xl font-extrabold tracking-tight;
 }
 
 .stat-card-label {

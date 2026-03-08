@@ -45,7 +45,7 @@ const JobCard = ({ job }) => {
             transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             layout
         >
-            <div className="flex items-start justify-between mb-4">
+            <div className="flex items-start justify-between mb-4 flex-wrap gap-2">
                 <div className="flex items-center gap-4">
                     <div className={`w-14 h-14 bg-gradient-to-br ${getGradient(job.company)} rounded-2xl flex items-center justify-center text-white text-xl font-bold shadow-lg group-hover:shadow-xl transition-all duration-400 group-hover:scale-105`}>
                         {job.company?.charAt(0).toUpperCase()}
@@ -77,7 +77,7 @@ const JobCard = ({ job }) => {
                 <span className="flex items-center gap-1.5"><FaDollarSign className="text-violet-500 text-xs" />{job.salary}</span>
             </div>
 
-            <div className="flex items-center justify-between pt-4 border-t" style={{ borderColor: 'var(--border-color)' }}>
+            <div className="flex items-center justify-between pt-4 border-t flex-wrap gap-2" style={{ borderColor: 'var(--border-color)' }}>
                 <span className="flex items-center gap-1.5 text-xs text-gray-400"><FaClock />{formatDate(job.createdAt)}</span>
                 <Link to={`/jobs/${job._id}`} className="btn btn-primary btn-ripple text-sm py-2 px-5 flex items-center gap-2 group/btn">
                     View Details <FaArrowRight className="text-xs transition-transform duration-300 group-hover/btn:translate-x-1" />

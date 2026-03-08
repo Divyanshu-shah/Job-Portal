@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
+import { useEffect } from 'react';
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 import Navbar from './components/Navbar';
@@ -23,12 +24,19 @@ import PostJob from './pages/PostJob';
 import BackgroundAnimation from './components/BackgroundAnimation';
 
 /* Layout wrapper: hides default footer on landing page (it has its own) */
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  return null;
+}
+
 function AppLayout() {
   const location = useLocation();
   const isLanding = location.pathname === '/';
 
   return (
     <>
+      <ScrollToTop />
       <BackgroundAnimation />
       <div className="flex flex-col min-h-screen relative z-0">
         <Navbar />

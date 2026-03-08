@@ -51,13 +51,13 @@ const FeaturedJobs = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-28" style={{ background: 'var(--bg-secondary)' }}>
+    <section ref={sectionRef} className="py-16 md:py-28" style={{ background: 'var(--bg-secondary)' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div ref={headingRef} className="text-center mb-16">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium mb-4" style={{ background: 'var(--glass-bg)', border: '1px solid var(--card-border)', color: 'var(--primary)' }}>
             <FaBriefcase className="text-xs" /> Featured Jobs
           </span>
-          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4" style={{ color: 'var(--text-primary)', fontFamily: "'Outfit', sans-serif" }}>
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold tracking-tight mb-4" style={{ color: 'var(--text-primary)', fontFamily: "'Outfit', sans-serif" }}>
             Hot Opportunities <span className="gradient-text">Right Now</span>
           </h2>
           <p className="text-lg max-w-xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
@@ -94,7 +94,7 @@ const FeaturedJobs = () => {
         </div>
 
         <div className="text-center mt-12">
-          <Link to="/jobs" className="btn btn-primary btn-ripple inline-flex items-center gap-2 text-lg px-8 py-4">
+          <Link to="/jobs" className="btn btn-primary btn-ripple inline-flex items-center gap-2 text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4">
             View All Jobs <FaArrowRight />
           </Link>
         </div>

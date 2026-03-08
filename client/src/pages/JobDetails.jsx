@@ -64,7 +64,7 @@ const JobDetails = () => {
                                     <span className={`badge ${getJobTypeBadge(job.jobType)}`}>{job.jobType?.replace('-', ' ')}</span>
                                 </div>
                                 <p className="text-lg mb-4" style={{ color: 'var(--text-secondary)' }}>{job.company}</p>
-                                <div className="flex flex-wrap gap-5" style={{ color: 'var(--text-muted)' }}>
+                                <div className="flex flex-wrap gap-3 sm:gap-5" style={{ color: 'var(--text-muted)' }}>
                                     <span className="flex items-center gap-2 text-sm"><FaMapMarkerAlt className="text-violet-500" />{job.location}</span>
                                     <span className="flex items-center gap-2 text-sm"><FaBriefcase className="text-violet-500" />{job.experience}</span>
                                     <span className="flex items-center gap-2 text-sm"><FaDollarSign className="text-violet-500" />{job.salary}</span>

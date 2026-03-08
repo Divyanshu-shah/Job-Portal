@@ -108,7 +108,7 @@ const AdminDashboard = () => {
                 </AnimatedSection>
 
                 {/* Stats */}
-                <AnimatedSection animation="fade-in-up" stagger className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+                <AnimatedSection animation="fade-in-up" stagger className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-8">
                     {statItems.map((item, index) => (
                         <div key={index} className="stat-card card-tilt">
                             <div className="flex items-center justify-between">
@@ -187,7 +187,7 @@ const AdminDashboard = () => {
                                                     <p className="text-sm mt-1" style={{ color: 'var(--text-secondary)' }}>Company: <strong>{recruiter.company}</strong></p>
                                                 </div>
                                             </div>
-                                            <div className="flex items-center gap-3">
+                                            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                                                 <button
                                                     onClick={() => approveRecruiter(recruiter._id)}
                                                     className="btn btn-success text-sm py-2 px-4 flex items-center gap-2"

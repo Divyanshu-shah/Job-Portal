@@ -53,7 +53,7 @@ const LandingFooter = () => {
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-500/40 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-8">
-        <div ref={contentRef} className="grid md:grid-cols-2 lg:grid-cols-5 gap-10 mb-16">
+        <div ref={contentRef} className="grid md:grid-cols-2 lg:grid-cols-5 gap-6 md:gap-10 mb-16">
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link to="/" className="flex items-center gap-2.5 text-2xl font-bold text-white mb-5 group">

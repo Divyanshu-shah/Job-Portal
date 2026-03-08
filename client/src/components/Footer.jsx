@@ -11,7 +11,7 @@ const Footer = () => {
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-500 to-transparent opacity-40"></div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                <div className="grid md:grid-cols-4 gap-10">
+                <div className="grid md:grid-cols-4 gap-6 md:gap-10">
                     <div className="col-span-1">
                         <Link to="/" onClick={scrollToTop} className="flex items-center gap-2.5 text-2xl font-bold text-white mb-5 group">
                             <div className="w-9 h-9 bg-gradient-to-br from-violet-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-violet-500/30 transition-all duration-400">

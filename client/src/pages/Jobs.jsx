@@ -59,7 +59,7 @@ const Jobs = () => {
                         style={{ background: 'var(--glass-bg)', border: '1px solid var(--card-border)', color: 'var(--primary)' }}>
                         <FaBriefcase className="text-xs" /> Opportunities
                     </div>
-                    <h1 className="text-3xl md:text-5xl font-extrabold mb-4 tracking-tight" style={{ fontFamily: "'Outfit', sans-serif" }}>
+                    <h1 className="text-2xl sm:text-3xl md:text-5xl font-extrabold mb-4 tracking-tight" style={{ fontFamily: "'Outfit', sans-serif" }}>
                         <span className="gradient-text">Browse Jobs</span>
                     </h1>
                     <p className="max-w-2xl mx-auto text-lg" style={{ color: 'var(--text-secondary)' }}>Discover thousands of job opportunities from top companies around the world.</p>

@@ -98,7 +98,7 @@ const StudentDashboard = () => {
                 </AnimatedSection>
 
                 {/* Stats Cards */}
-                <AnimatedSection animation="fade-in-up" stagger className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+                <AnimatedSection animation="fade-in-up" stagger className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 mb-8">
                     {statItems.map((item, index) => (
                         <div key={index} className="stat-card card-tilt">
                             <div className="flex items-center justify-between">

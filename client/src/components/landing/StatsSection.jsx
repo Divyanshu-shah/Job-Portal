@@ -66,7 +66,7 @@ const StatsSection = () => {
               <div className={`w-12 h-12 mx-auto bg-gradient-to-br ${stat.gradient} rounded-xl flex items-center justify-center text-white text-lg mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                 {stat.icon}
               </div>
-              <div ref={(el) => (countersRef.current[i] = el)} className="text-3xl md:text-4xl font-extrabold mb-1 tracking-tight" style={{ color: 'var(--text-primary)', fontFamily: "'Outfit', sans-serif" }}>
+              <div ref={(el) => (countersRef.current[i] = el)} className="text-2xl sm:text-3xl md:text-4xl font-extrabold mb-1 tracking-tight" style={{ color: 'var(--text-primary)', fontFamily: "'Outfit', sans-serif" }}>
                 0
               </div>
               <div className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>{stat.label}</div>

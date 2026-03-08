@@ -48,13 +48,13 @@ const FeaturesGrid = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-28" style={{ background: 'var(--bg-tertiary)' }}>
+    <section ref={sectionRef} className="py-16 md:py-28" style={{ background: 'var(--bg-tertiary)' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div ref={headingRef} className="text-center mb-16">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium mb-4" style={{ background: 'var(--glass-bg)', border: '1px solid var(--card-border)', color: 'var(--primary)' }}>
             <FaRocket className="text-xs" /> Why Choose Us
           </span>
-          <h2 className="text-3xl md:text-5xl font-extrabold mb-5 tracking-tight" style={{ color: 'var(--text-primary)', fontFamily: "'Outfit', sans-serif" }}>
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold mb-5 tracking-tight" style={{ color: 'var(--text-primary)', fontFamily: "'Outfit', sans-serif" }}>
             Why Choose <span className="gradient-text">JobPortal</span>?
           </h2>
           <p className="max-w-2xl mx-auto text-lg" style={{ color: 'var(--text-secondary)' }}>

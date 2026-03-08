@@ -55,14 +55,14 @@ const HowItWorks = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="py-28 relative" style={{ background: 'var(--bg-secondary)' }}>
+    <section ref={sectionRef} className="py-16 md:py-28 relative" style={{ background: 'var(--bg-secondary)' }}>
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading */}
         <div ref={headingRef} className="text-center mb-20">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium mb-4" style={{ background: 'var(--glass-bg)', border: '1px solid var(--card-border)', color: 'var(--primary)' }}>
             How It Works
           </span>
-          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4" style={{ color: 'var(--text-primary)', fontFamily: "'Outfit', sans-serif" }}>
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold tracking-tight mb-4" style={{ color: 'var(--text-primary)', fontFamily: "'Outfit', sans-serif" }}>
             Land Your Dream Job in <span className="gradient-text">4 Steps</span>
           </h2>
           <p className="text-lg max-w-xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
@@ -77,12 +77,12 @@ const HowItWorks = () => {
             <div ref={lineRef} className="w-full h-full bg-gradient-to-b from-violet-500 via-violet-500 to-rose-500 origin-top" />
           </div>
 
-          <div className="space-y-16 md:space-y-24">
+          <div className="space-y-10 md:space-y-24">
             {steps.map((step, i) => (
               <div key={i} ref={(el) => (stepsRef.current[i] = el)} className={`flex flex-col md:flex-row items-center gap-8 ${i % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
                 {/* Step card */}
                 <div className="flex-1 w-full">
-                  <div className="card p-8 relative overflow-hidden group hover:border-violet-500/30 transition-all duration-500">
+                  <div className="card p-5 sm:p-8 relative overflow-hidden group hover:border-violet-500/30 transition-all duration-500">
                     {/* Step number */}
                     <div className="absolute top-4 right-4 text-6xl font-extrabold opacity-[0.04]" style={{ color: 'var(--text-primary)', fontFamily: "'Outfit', sans-serif" }}>
                       0{i + 1}

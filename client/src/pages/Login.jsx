@@ -35,7 +35,7 @@ const Login = () => {
                     </Link>
                     <p className="mt-3 text-sm" style={{ color: 'var(--text-secondary)' }}>Welcome back! Please login to continue.</p>
                 </div>
-                <div className="card p-8">
+                <div className="card p-5 sm:p-8">
                     <h2 className="text-2xl font-bold mb-6 text-center" style={{ color: 'var(--text-primary)', fontFamily: "'Outfit', sans-serif" }}>Sign In</h2>
                     {error && <div className="mb-5 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800/50 rounded-xl text-red-600 dark:text-red-400 text-sm font-medium">{error}</div>}
                     <form onSubmit={handleSubmit} className="space-y-5">

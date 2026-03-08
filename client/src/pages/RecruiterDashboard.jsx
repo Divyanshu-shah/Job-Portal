@@ -190,7 +190,7 @@ const RecruiterDashboard = () => {
                                                     <span>{job.applicationCount || 0} applicants</span>
                                                 </div>
                                             </div>
-                                            <div className="flex items-center gap-3">
+                                            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                                                 <button
                                                     onClick={() => fetchApplications(job._id)}
                                                     className="btn btn-outline text-sm py-2 px-4 flex items-center gap-2"

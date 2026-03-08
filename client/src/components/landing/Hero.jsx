@@ -93,21 +93,21 @@ const Hero = () => {
       ))}
 
       {/* Content */}
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-10 sm:py-20">
         <div ref={badgeRef} className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/[0.07] backdrop-blur-md border border-white/10 text-violet-300 text-sm font-medium mb-8">
           <FaStar className="text-amber-400 text-xs" />
           <span>Trusted by 50,000+ students nationwide</span>
         </div>
 
-        <h1 ref={titleRef} className="text-5xl md:text-6xl lg:text-8xl font-extrabold text-white mb-4 leading-[1.05] tracking-tight" style={{ fontFamily: "'Outfit', sans-serif" }}>
+        <h1 ref={titleRef} className="text-3xl sm:text-5xl md:text-6xl lg:text-8xl font-extrabold text-white mb-4 leading-[1.05] tracking-tight" style={{ fontFamily: "'Outfit', sans-serif" }}>
           Find Your Dream Job
         </h1>
 
-        <h2 ref={subtitleRef} className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-violet-300 via-indigo-200 to-rose-300 bg-clip-text text-transparent" style={{ fontFamily: "'Outfit', sans-serif" }}>
+        <h2 ref={subtitleRef} className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-violet-300 via-indigo-200 to-rose-300 bg-clip-text text-transparent" style={{ fontFamily: "'Outfit', sans-serif" }}>
           Start Your Career Today
         </h2>
 
-        <p ref={descRef} className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-12 leading-relaxed">
+        <p ref={descRef} className="text-base sm:text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-8 sm:mb-12 leading-relaxed">
           Connect with top employers, discover amazing opportunities, and take the next step in your professional journey.
         </p>
 
