@@ -29,7 +29,7 @@ const AdminDashboard = () => {
             ]);
             setStats(statsRes.data);
             setPendingRecruiters(pendingRes.data);
-            setAllUsers(usersRes.data);
+            setAllUsers(usersRes.data.users || usersRes.data);
         } catch (err) {
             console.error('Failed to fetch admin data:', err);
         }

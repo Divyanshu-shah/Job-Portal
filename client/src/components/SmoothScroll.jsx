@@ -16,12 +16,15 @@ const SmoothScroll = ({ children }) => {
 
     // Sync Lenis scroll position with GSAP ScrollTrigger
     lenis.on('scroll', ScrollTrigger.update);
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
+    const tickerCallback = (time) => {
+      const l = getLenis();
+      if (l) l.raf(time * 1000);
+    };
+    gsap.ticker.add(tickerCallback);
     gsap.ticker.lagSmoothing(0);
 
     return () => {
+      gsap.ticker.remove(tickerCallback);
       destroySmoothScroll();
     };
   }, []);
