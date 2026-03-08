@@ -3,7 +3,7 @@
  * and connecting progress line between steps.
  */
 import { useEffect, useRef, lazy, Suspense } from 'react';
-import { FaCloudUploadAlt, FaBrain, FaBullseye, FaPaperPlane } from 'react-icons/fa';
+import { FaCloudUploadAlt, FaSearch, FaBullseye, FaPaperPlane } from 'react-icons/fa';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -13,7 +13,7 @@ const LottiePlayer = lazy(() => import('lottie-react'));
 
 const steps = [
   { icon: <FaCloudUploadAlt />, title: 'Upload Resume', description: 'Upload your resume in seconds. Our platform supports all major formats.', gradient: 'from-emerald-500 to-teal-500', lottie: null },
-  { icon: <FaBrain />, title: 'AI Analyzes Profile', description: 'Our AI engine scans your skills, experience, and preferences to understand you.', gradient: 'from-violet-500 to-indigo-500', lottie: null },
+  { icon: <FaSearch />, title: 'Browse Opportunities', description: 'Search and filter thousands of jobs by role, location, salary, and experience level.', gradient: 'from-violet-500 to-indigo-500', lottie: null },
   { icon: <FaBullseye />, title: 'Get Job Matches', description: 'Receive personalized job recommendations that match your unique profile.', gradient: 'from-amber-500 to-orange-500', lottie: null },
   { icon: <FaPaperPlane />, title: 'Apply Instantly', description: 'Apply with one click. Your profile is auto-filled for faster applications.', gradient: 'from-rose-500 to-pink-500', lottie: null },
 ];
